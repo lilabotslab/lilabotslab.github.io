@@ -1,0 +1,15 @@
+body {
+  text-align: center;
+  background-color: #d8ecff;   /* pastelowy jasny niebieski */
+  color: #008b8b;              /* turkusowy tekst */
+  font-family: sans-serif;
+}
+
+h1 {
+  color: #008b8b;              /* turkusowy nagłówek */
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+}
