@@ -9,30 +9,38 @@
 <body>
   <main>
     <h1>Fiszki angielskie 🇬🇧</h1>
-    <p class="instruction">Kliknij fiszkę, aby zobaczyć tłumaczenie.</p>
+    <p class="instruction">Kliknij fiszkę, aby ją odwrócić.</p>
 
     <section class="cards" aria-label="Fiszki ze słówkami">
-      <button class="card" type="button" onclick="this.classList.toggle('flipped')" aria-label="Fiszka: dom">
+      <button class="card" type="button" aria-label="Fiszka: dom">
         <span class="card-inner">
-          <span class="card-front">dom</span>
-          <span class="card-back">house</span>
+          <span class="card-face card-front">dom</span>
+          <span class="card-face card-back">house</span>
         </span>
       </button>
 
-      <button class="card" type="button" onclick="this.classList.toggle('flipped')" aria-label="Fiszka: krzesło">
+      <button class="card" type="button" aria-label="Fiszka: krzesło">
         <span class="card-inner">
-          <span class="card-front">krzesło</span>
-          <span class="card-back">chair</span>
+          <span class="card-face card-front">krzesło</span>
+          <span class="card-face card-back">chair</span>
         </span>
       </button>
 
-      <button class="card" type="button" onclick="this.classList.toggle('flipped')" aria-label="Fiszka: stół">
+      <button class="card" type="button" aria-label="Fiszka: stół">
         <span class="card-inner">
-          <span class="card-front">stół</span>
-          <span class="card-back">table</span>
+          <span class="card-face card-front">stół</span>
+          <span class="card-face card-back">table</span>
         </span>
       </button>
     </section>
   </main>
+
+  <script>
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.toggle('flipped');
+      });
+    });
+  </script>
 </body>
 </html>
