@@ -1,64 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fiszki niemiecko-angielskie</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lila</title>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: grid;
+      place-items: center;
+      background: #fff;
+      color: #000;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    h1 { margin: 0; font-size: 4rem; font-weight: 400; }
+  </style>
 </head>
 <body>
-  <main>
-    <h1>Fiszki niemiecko-angielskie 🇩🇪 🇬🇧</h1>
-    <p class="instruction">Kliknij fiszkę, aby ją odwrócić. Po pokazaniu angielskiego słowa usłyszysz naturalną wymowę.</p>
-
-    <section class="cards" aria-label="Fiszki ze słówkami niemieckimi i angielskimi">
-      <button class="card" type="button" aria-label="Fiszka: Haus" data-audio="https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d1/En-uk-house.ogg/En-uk-house.ogg.mp3">
-        <span class="card-inner">
-          <span class="card-face card-front">Haus</span>
-          <span class="card-face card-back">house</span>
-        </span>
-      </button>
-
-      <button class="card" type="button" aria-label="Fiszka: Stuhl" data-audio="https://upload.wikimedia.org/wikipedia/commons/transcoded/1/11/En-uk-chair.ogg/En-uk-chair.ogg.mp3">
-        <span class="card-inner">
-          <span class="card-face card-front">Stuhl</span>
-          <span class="card-face card-back">chair</span>
-        </span>
-      </button>
-
-      <button class="card" type="button" aria-label="Fiszka: Tisch" data-audio="https://upload.wikimedia.org/wikipedia/commons/transcoded/5/57/En-uk-table.ogg/En-uk-table.ogg.mp3">
-        <span class="card-inner">
-          <span class="card-face card-front">Tisch</span>
-          <span class="card-face card-back">table</span>
-        </span>
-      </button>
-    </section>
-
-    <p class="audio-credit">
-      Nagrania wymowy: Wikimedia Commons / Shtooka Project, Judith Franck — licencja CC BY 3.0.
-    </p>
-  </main>
-
-  <script>
-    let currentAudio = null;
-
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('click', () => {
-        const wasFlipped = card.classList.contains('flipped');
-        card.classList.toggle('flipped');
-
-        if (!wasFlipped) {
-          if (currentAudio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-          }
-
-          currentAudio = new Audio(card.dataset.audio);
-          currentAudio.preload = 'auto';
-          currentAudio.play().catch(() => {});
-        }
-      });
-    });
-  </script>
+  <h1>Lila</h1>
 </body>
 </html>
