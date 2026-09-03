@@ -9,7 +9,7 @@
 <body>
   <main>
     <h1>Fiszki angielskie 🇬🇧</h1>
-    <p class="instruction">Kliknij fiszkę, aby ją odwrócić.</p>
+    <p class="instruction">Kliknij fiszkę, aby ją odwrócić. Po pokazaniu angielskiego słowa usłyszysz wymowę.</p>
 
     <section class="cards" aria-label="Fiszki ze słówkami">
       <button class="card" type="button" aria-label="Fiszka: dom">
@@ -38,7 +38,17 @@
   <script>
     document.querySelectorAll('.card').forEach(card => {
       card.addEventListener('click', () => {
+        const wasFlipped = card.classList.contains('flipped');
         card.classList.toggle('flipped');
+
+        if (!wasFlipped && 'speechSynthesis' in window) {
+          const word = card.querySelector('.card-back').textContent.trim();
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(word);
+          utterance.lang = 'en-US';
+          utterance.rate = 0.85;
+          window.speechSynthesis.speak(utterance);
+        }
       });
     });
   </script>
