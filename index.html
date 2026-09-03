@@ -9,45 +9,53 @@
 <body>
   <main>
     <h1>Fiszki angielskie 🇬🇧</h1>
-    <p class="instruction">Kliknij fiszkę, aby ją odwrócić. Po pokazaniu angielskiego słowa usłyszysz wymowę.</p>
+    <p class="instruction">Kliknij fiszkę, aby ją odwrócić. Po pokazaniu angielskiego słowa usłyszysz naturalną wymowę.</p>
 
     <section class="cards" aria-label="Fiszki ze słówkami">
-      <button class="card" type="button" aria-label="Fiszka: dom">
+      <button class="card" type="button" aria-label="Fiszka: dom" data-audio="https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d1/En-uk-house.ogg/En-uk-house.ogg.mp3">
         <span class="card-inner">
           <span class="card-face card-front">dom</span>
           <span class="card-face card-back">house</span>
         </span>
       </button>
 
-      <button class="card" type="button" aria-label="Fiszka: krzesło">
+      <button class="card" type="button" aria-label="Fiszka: krzesło" data-audio="https://upload.wikimedia.org/wikipedia/commons/transcoded/1/11/En-uk-chair.ogg/En-uk-chair.ogg.mp3">
         <span class="card-inner">
           <span class="card-face card-front">krzesło</span>
           <span class="card-face card-back">chair</span>
         </span>
       </button>
 
-      <button class="card" type="button" aria-label="Fiszka: stół">
+      <button class="card" type="button" aria-label="Fiszka: stół" data-audio="https://upload.wikimedia.org/wikipedia/commons/transcoded/5/57/En-uk-table.ogg/En-uk-table.ogg.mp3">
         <span class="card-inner">
           <span class="card-face card-front">stół</span>
           <span class="card-face card-back">table</span>
         </span>
       </button>
     </section>
+
+    <p class="audio-credit">
+      Nagrania wymowy: Wikimedia Commons / Shtooka Project, Judith Franck — licencja CC BY 3.0.
+    </p>
   </main>
 
   <script>
+    let currentAudio = null;
+
     document.querySelectorAll('.card').forEach(card => {
       card.addEventListener('click', () => {
         const wasFlipped = card.classList.contains('flipped');
         card.classList.toggle('flipped');
 
-        if (!wasFlipped && 'speechSynthesis' in window) {
-          const word = card.querySelector('.card-back').textContent.trim();
-          window.speechSynthesis.cancel();
-          const utterance = new SpeechSynthesisUtterance(word);
-          utterance.lang = 'en-US';
-          utterance.rate = 0.85;
-          window.speechSynthesis.speak(utterance);
+        if (!wasFlipped) {
+          if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+          }
+
+          currentAudio = new Audio(card.dataset.audio);
+          currentAudio.preload = 'auto';
+          currentAudio.play().catch(() => {});
         }
       });
     });
