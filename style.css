@@ -1,15 +1,95 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #d8ecff;
+  color: #008b8b;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  width: min(900px, 92%);
   text-align: center;
-  background-color: #d8ecff;   /* pastelowy jasny niebieski */
-  color: #008b8b;              /* turkusowy tekst */
-  font-family: sans-serif;
+  padding: 40px 20px;
 }
 
 h1 {
-  color: #008b8b;              /* turkusowy nagłówek */
+  margin-bottom: 10px;
+  font-size: 2.4rem;
 }
 
-img {
+.instruction {
+  margin-bottom: 35px;
+  color: #333;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 220px;
+  height: 150px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.card-inner {
+  position: relative;
   display: block;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  font-size: 2rem;
+  font-weight: bold;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  color: #006666;
+}
+
+.card:focus-visible {
+  outline: 3px solid #333;
+  outline-offset: 5px;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .card {
+    width: 280px;
+  }
 }
