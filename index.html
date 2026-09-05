@@ -1,59 +1,26 @@
 <!doctype html>
 <html lang="pl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Jednorożec</title>
-<style>
-html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#000;display:grid;place-items:center}.scene{width:100vw;height:100vh;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 85%,#7d3f9c 0,#25104c 38%,#000 78%)}svg{width:min(82vw,720px);height:92vh;max-height:1000px;display:block}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jednorożec 🦄</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Arial,sans-serif;background:linear-gradient(135deg,#fff0fb,#e9f9ff);color:#6d2f78;text-align:center}main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 20px}h1{margin:0 0 20px;font-size:clamp(2rem,7vw,4rem)}.unicorn{width:min(90vw,520px);max-height:55vh;object-fit:contain;border-radius:24px}footer{width:100%;padding:18px;background:rgba(255,255,255,.75);border-top:1px solid #ead8ed;font-size:1rem}
+  </style>
 </head>
 <body>
-<div class="scene">
-<svg viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tańczący jednorożec">
-<defs>
- <linearGradient id="mane" x1="0" x2="1"><stop stop-color="#ff35b8"/><stop offset=".25" stop-color="#a75cff"/><stop offset=".5" stop-color="#27bff2"/><stop offset=".75" stop-color="#68df87"/><stop offset="1" stop-color="#ffd83d"/></linearGradient>
- <radialGradient id="spot"><stop stop-color="#ff9eea" stop-opacity=".75"/><stop offset="1" stop-color="#6b2b9c" stop-opacity="0"/></radialGradient>
- <filter id="glow"><feGaussianBlur stdDeviation="12"/></filter>
-</defs>
-<ellipse cx="300" cy="790" rx="270" ry="90" fill="url(#spot)" filter="url(#glow)"/>
-<ellipse cx="300" cy="805" rx="235" ry="55" fill="#d85bca" opacity=".25"/>
-<!-- rainbow mane -->
-<path d="M145 330 C75 260 105 150 190 135 C250 45 380 70 405 175 C485 205 465 330 405 365 C350 290 205 285 145 330Z" fill="url(#mane)"/>
-<!-- body -->
-<path d="M205 310 C190 395 190 515 215 610 L170 735 Q165 770 205 775 L270 775 L292 650 L310 775 L375 775 Q405 765 390 735 L350 605 C380 500 375 395 355 310Z" fill="#fff"/>
-<!-- head -->
-<ellipse cx="280" cy="265" rx="125" ry="112" fill="#fff"/>
-<!-- ears -->
-<path d="M205 185 L180 90 Q235 105 255 175Z" fill="#fff" stroke="#ddd" stroke-width="5"/>
-<path d="M340 180 L390 95 Q415 155 365 210Z" fill="#fff" stroke="#ddd" stroke-width="5"/>
-<path d="M202 155 L193 116 Q220 130 232 166Z" fill="#f5a1bd"/><path d="M363 163 L390 126 Q394 160 371 184Z" fill="#f5a1bd"/>
-<!-- horn -->
-<path d="M280 170 L310 70 L338 177Z" fill="#f1c34f" stroke="#d79f22" stroke-width="4"/>
-<path d="M293 130 L325 119 M289 150 L331 138 M285 170 L337 155" stroke="#fff1a8" stroke-width="7"/>
-<!-- face -->
-<path d="M215 245 Q235 225 255 245" fill="none" stroke="#111" stroke-width="7" stroke-linecap="round"/><path d="M310 245 Q330 225 350 245" fill="none" stroke="#111" stroke-width="7" stroke-linecap="round"/>
-<circle cx="235" cy="240" r="3"/><circle cx="330" cy="240" r="3"/>
-<ellipse cx="285" cy="300" rx="70" ry="48" fill="#f7f7f7"/><ellipse cx="260" cy="300" rx="9" ry="13" fill="#111"/><ellipse cx="310" cy="300" rx="9" ry="13" fill="#111"/>
-<path d="M275 322 Q292 340 310 320" fill="none" stroke="#111" stroke-width="6" stroke-linecap="round"/>
-<circle cx="205" cy="285" r="20" fill="#ffb1c8" opacity=".55"/><circle cx="365" cy="285" r="20" fill="#ffb1c8" opacity=".55"/>
-<!-- dancing arms -->
-<path d="M210 390 Q120 420 105 505 Q100 535 130 545 Q155 552 168 525 L235 455Z" fill="#fff" stroke="#ddd" stroke-width="5"/>
-<path d="M345 390 Q435 360 500 300 Q525 280 545 300 Q558 322 535 345 L390 470Z" fill="#fff" stroke="#ddd" stroke-width="5"/>
-<!-- glittery hooves -->
-<ellipse cx="125" cy="525" rx="34" ry="25" fill="#a66cff"/><ellipse cx="525" cy="315" rx="34" ry="25" fill="#a66cff"/>
-<path d="M108 520 l35 10 M112 505 l34 12 M510 305 l35 10 M514 290 l34 12" stroke="#e5caff" stroke-width="5"/>
-<!-- legs -->
-<path d="M225 585 Q205 675 205 760 Q205 790 235 795 L270 795 Q285 775 270 755 L285 625Z" fill="#fff"/>
-<path d="M315 620 Q325 690 370 750 Q385 775 365 795 L330 795 Q310 785 315 760 L290 650Z" fill="#fff"/>
-<ellipse cx="238" cy="790" rx="42" ry="25" fill="#a66cff"/><ellipse cx="350" cy="790" rx="42" ry="25" fill="#a66cff"/>
-<path d="M215 782 l45 12 M215 768 l45 12 M328 780 l45 12 M325 766 l45 12" stroke="#e5caff" stroke-width="5"/>
-<!-- tail -->
-<path d="M375 560 Q500 550 455 690 Q425 755 500 770 Q390 800 375 700 Q360 620 375 560Z" fill="url(#mane)"/>
-<!-- stars -->
-<g fill="#fff"><circle cx="90" cy="190" r="4"/><circle cx="485" cy="180" r="5"/><circle cx="105" cy="350" r="3"/><circle cx="500" cy="470" r="4"/></g>
-<text x="300" y="55" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="28" font-weight="700">🦄</text>
-</svg>
-</div>
+  <main>
+    <h1>🦄</h1>
+    <a href="https://www.publicdomainpictures.net/en/view-image.php?image=606209&picture=unicorn-illustration" target="_blank" rel="noopener">
+      <img class="unicorn" src="https://www.publicdomainpictures.net/pictures/610000/velka/unicorn-illustration-1717767840.jpg" alt="Kolorowy jednorożec">
+    </a>
+  </main>
+  <footer>👀 Odwiedziny strony: <span id="visits">...</span></footer>
+  <script>
+    const key='lilabotslab-page-visits';
+    const visits=Number(localStorage.getItem(key)||0)+1;
+    localStorage.setItem(key,visits);
+    document.getElementById('visits').textContent=visits;
+  </script>
 </body>
 </html>
