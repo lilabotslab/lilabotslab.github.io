@@ -11,9 +11,9 @@
     h1 { margin: 0; font-size: clamp(2rem, 8vw, 3.5rem); }
     .greeting-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px; }
     #greeting { margin: 0; min-width: 120px; font-size: clamp(2.5rem, 8vw, 4rem); color: #159e9e; }
-    button { border: 0; border-radius: 999px; padding: 13px 20px; cursor: pointer; background: #159e9e; color: white; font-size: 1rem; font-weight: 700; box-shadow: 0 4px 12px #159e9e35; }
-    button:hover { background: #117f82; }
-    button:focus-visible { outline: 3px solid #653477; outline-offset: 4px; }
+    button, .page-link { border: 0; border-radius: 999px; padding: 13px 20px; cursor: pointer; background: #159e9e; color: white; font-size: 1rem; font-weight: 700; box-shadow: 0 4px 12px #159e9e35; text-decoration: none; display: inline-block; }
+    button:hover, .page-link:hover { background: #117f82; }
+    button:focus-visible, .page-link:focus-visible { outline: 3px solid #653477; outline-offset: 4px; }
     #language { margin: 0; color: #765783; font-size: 1rem; }
     #language-table { width: min(100%, 520px); border-collapse: collapse; background: #ffffffdf; border-radius: 14px; overflow: hidden; }
     #language-table th, #language-table td { padding: 12px; border-bottom: 1px solid #ead8ed; }
@@ -33,6 +33,7 @@
       <button id="change-language" type="button" aria-expanded="false" aria-controls="language-table">Zmień język 🌍</button>
     </div>
     <p id="language">Wybrany język: Polski 🇵🇱</p>
+    <a class="page-link" id="next-page" href="page2.html">Następna strona ➜</a>
     <table id="language-table" hidden>
       <thead><tr><th id="table-language">Język</th><th id="table-greeting">Powitanie</th><th id="table-action">Wybierz</th></tr></thead>
       <tbody>
@@ -48,12 +49,12 @@
   <footer><span id="visits-label">👀 Odwiedziny strony:</span> <span id="visits">...</span></footer>
   <script>
     const translations = [
-      { code: 'pl', name: 'Polski 🇵🇱', title: 'Powitania świata', greeting: 'Hej!', change: 'Zmień język 🌍', selected: 'Wybrany język:', tableLanguage: 'Język', tableGreeting: 'Powitanie', tableAction: 'Wybierz', choose: 'Wybierz', visits: '👀 Odwiedziny strony:' },
-      { code: 'en', name: 'English 🇬🇧', title: 'World Greetings', greeting: 'Hello!', change: 'Change language 🌍', selected: 'Selected language:', tableLanguage: 'Language', tableGreeting: 'Greeting', tableAction: 'Choose', choose: 'Choose', visits: '👀 Page visits:' },
-      { code: 'de', name: 'Deutsch 🇩🇪', title: 'Grüße aus aller Welt', greeting: 'Hallo!', change: 'Sprache ändern 🌍', selected: 'Ausgewählte Sprache:', tableLanguage: 'Sprache', tableGreeting: 'Begrüßung', tableAction: 'Auswählen', choose: 'Auswählen', visits: '👀 Seitenaufrufe:' },
-      { code: 'fr', name: 'Français 🇫🇷', title: 'Salutations du monde', greeting: 'Salut !', change: 'Changer de langue 🌍', selected: 'Langue choisie :', tableLanguage: 'Langue', tableGreeting: 'Salutation', tableAction: 'Choisir', choose: 'Choisir', visits: '👀 Visites de la page :' },
-      { code: 'es', name: 'Español 🇪🇸', title: 'Saludos del mundo', greeting: '¡Hola!', change: 'Cambiar idioma 🌍', selected: 'Idioma seleccionado:', tableLanguage: 'Idioma', tableGreeting: 'Saludo', tableAction: 'Elegir', choose: 'Elegir', visits: '👀 Visitas a la página:' },
-      { code: 'it', name: 'Italiano 🇮🇹', title: 'Saluti dal mondo', greeting: 'Ciao!', change: 'Cambia lingua 🌍', selected: 'Lingua selezionata:', tableLanguage: 'Lingua', tableGreeting: 'Saluto', tableAction: 'Scegli', choose: 'Scegli', visits: '👀 Visite della pagina:' }
+      { code: 'pl', name: 'Polski 🇵🇱', title: 'Powitania świata', greeting: 'Hej!', change: 'Zmień język 🌍', selected: 'Wybrany język:', tableLanguage: 'Język', tableGreeting: 'Powitanie', tableAction: 'Wybierz', choose: 'Wybierz', visits: '👀 Odwiedziny strony:', next: 'Następna strona ➜' },
+      { code: 'en', name: 'English 🇬🇧', title: 'World Greetings', greeting: 'Hello!', change: 'Change language 🌍', selected: 'Selected language:', tableLanguage: 'Language', tableGreeting: 'Greeting', tableAction: 'Choose', choose: 'Choose', visits: '👀 Page visits:', next: 'Next page ➜' },
+      { code: 'de', name: 'Deutsch 🇩🇪', title: 'Grüße aus aller Welt', greeting: 'Hallo!', change: 'Sprache ändern 🌍', selected: 'Ausgewählte Sprache:', tableLanguage: 'Sprache', tableGreeting: 'Begrüßung', tableAction: 'Auswählen', choose: 'Auswählen', visits: '👀 Seitenaufrufe:', next: 'Zur nächsten Seite ➜' },
+      { code: 'fr', name: 'Français 🇫🇷', title: 'Salutations du monde', greeting: 'Salut !', change: 'Changer de langue 🌍', selected: 'Langue choisie :', tableLanguage: 'Langue', tableGreeting: 'Salutation', tableAction: 'Choisir', choose: 'Choisir', visits: '👀 Visites de la page :', next: 'Page suivante ➜' },
+      { code: 'es', name: 'Español 🇪🇸', title: 'Saludos del mundo', greeting: '¡Hola!', change: 'Cambiar idioma 🌍', selected: 'Idioma seleccionado:', tableLanguage: 'Idioma', tableGreeting: 'Saludo', tableAction: 'Elegir', choose: 'Elegir', visits: '👀 Visitas a la página:', next: 'Página siguiente ➜' },
+      { code: 'it', name: 'Italiano 🇮🇹', title: 'Saluti dal mondo', greeting: 'Ciao!', change: 'Cambia lingua 🌍', selected: 'Lingua selezionata:', tableLanguage: 'Lingua', tableGreeting: 'Saluto', tableAction: 'Scegli', choose: 'Scegli', visits: '👀 Visite della pagina:', next: 'Pagina successiva ➜' }
     ];
     const greeting = document.getElementById('greeting');
     const language = document.getElementById('language');
@@ -72,7 +73,9 @@
       document.getElementById('table-greeting').textContent = t.tableGreeting;
       document.getElementById('table-action').textContent = t.tableAction;
       document.getElementById('visits-label').textContent = t.visits;
+      document.getElementById('next-page').textContent = t.next;
       chooseButtons.forEach(button => { button.textContent = t.choose; });
+      localStorage.setItem('lilabotslab-language', String(index));
     }
     toggle.addEventListener('click', () => {
       const isOpening = table.hidden;
@@ -86,6 +89,8 @@
         toggle.setAttribute('aria-expanded', 'false');
       });
     });
+    const savedLanguage = Number(localStorage.getItem('lilabotslab-language') || 0);
+    applyLanguage(Number.isInteger(savedLanguage) && savedLanguage >= 0 && savedLanguage < translations.length ? savedLanguage : 0);
     const key = 'lilabotslab-page-visits';
     const visits = Number(localStorage.getItem(key) || 0) + 1;
     localStorage.setItem(key, visits);
