@@ -101,13 +101,39 @@
  document.getElementById('turn-back-3').addEventListener('click',()=>flip(under,false));
  const toggle=document.getElementById('change-language'),table=document.getElementById('language-table');
  toggle.addEventListener('click',()=>{table.hidden=!table.hidden;toggle.setAttribute('aria-expanded',String(!table.hidden));});
- const languages=[['Polski 🇵🇱','Hej!'],['English 🇬🇧','Hello!'],['Deutsch 🇩🇪','Hallo!'],['Français 🇫🇷','Salut!'],['Español 🇪🇸','¡Hola!'],['Italiano 🇮🇹','Ciao!']];
- document.querySelectorAll('.choose-button').forEach(button=>button.addEventListener('click',()=>{
-  const [name,greeting]=languages[Number(button.dataset.index)];
-  document.getElementById('greeting').textContent=greeting;
-  document.getElementById('language').textContent='Wybrany język: '+name;
+ const languages=[
+  {name:'Polski 🇵🇱',code:'pl',greeting:'Hej!',title:'Powitania świata',change:'Zmień język 🌍',selected:'Wybrany język: ',language:'Język',greetingLabel:'Powitanie',action:'Wybierz',next:'Dalej',back:'Wróć',magic:'Magiczna strona ✨',description:'Tutaj mieszka jednorożec!',unicorn:'Kolorowy jednorożec z tęczową grzywą',page2:'Druga strona kartki',page3:'Trzecia kartka',front:'Przód kartki'},
+  {name:'English 🇬🇧',code:'en',greeting:'Hello!',title:'Greetings Around the World',change:'Change language 🌍',selected:'Selected language: ',language:'Language',greetingLabel:'Greeting',action:'Choose',next:'Next',back:'Back',magic:'Magical page ✨',description:'A unicorn lives here!',unicorn:'Colorful unicorn with a rainbow mane',page2:'Second page',page3:'Third page',front:'Front page'},
+  {name:'Deutsch 🇩🇪',code:'de',greeting:'Hallo!',title:'Grüße aus aller Welt',change:'Sprache ändern 🌍',selected:'Ausgewählte Sprache: ',language:'Sprache',greetingLabel:'Gruß',action:'Auswählen',next:'Weiter',back:'Zurück',magic:'Zauberseite ✨',description:'Hier wohnt ein Einhorn!',unicorn:'Buntes Einhorn mit Regenbogenmähne',page2:'Zweite Seite',page3:'Dritte Seite',front:'Vorderseite'},
+  {name:'Français 🇫🇷',code:'fr',greeting:'Salut !',title:'Salutations du monde',change:'Changer de langue 🌍',selected:'Langue choisie : ',language:'Langue',greetingLabel:'Salutation',action:'Choisir',next:'Suivant',back:'Retour',magic:'Page magique ✨',description:'Une licorne habite ici !',unicorn:'Licorne colorée avec une crinière arc-en-ciel',page2:'Deuxième page',page3:'Troisième page',front:'Première page'},
+  {name:'Español 🇪🇸',code:'es',greeting:'¡Hola!',title:'Saludos del mundo',change:'Cambiar idioma 🌍',selected:'Idioma seleccionado: ',language:'Idioma',greetingLabel:'Saludo',action:'Elegir',next:'Siguiente',back:'Volver',magic:'Página mágica ✨',description:'¡Aquí vive un unicornio!',unicorn:'Unicornio colorido con melena arcoíris',page2:'Segunda página',page3:'Tercera página',front:'Primera página'},
+  {name:'Italiano 🇮🇹',code:'it',greeting:'Ciao!',title:'Saluti dal mondo',change:'Cambia lingua 🌍',selected:'Lingua selezionata: ',language:'Lingua',greetingLabel:'Saluto',action:'Scegli',next:'Avanti',back:'Indietro',magic:'Pagina magica ✨',description:'Qui vive un unicorno!',unicorn:'Unicorno colorato con criniera arcobaleno',page2:'Seconda pagina',page3:'Terza pagina',front:'Prima pagina'}
+ ];
+ const rows=[...document.querySelectorAll('#language-table tbody tr')];
+ function applyLanguage(index){
+  const item=languages[index];
+  document.documentElement.lang=item.code;
+  document.getElementById('greeting').textContent=item.greeting;
+  document.getElementById('page-title').textContent=item.title;
+  toggle.textContent=item.change;
+  document.getElementById('language').textContent=item.selected+item.name;
+  document.getElementById('table-language').textContent=item.language;
+  document.getElementById('table-greeting').textContent=item.greetingLabel;
+  document.getElementById('table-action').textContent=item.action;
+  document.getElementById('back-title').textContent=item.magic;
+  document.getElementById('back-description').textContent=item.description;
+  document.querySelector('.unicorn').alt=item.unicorn;
+  document.querySelector('.page-under').setAttribute('aria-label',item.page2);
+  document.querySelector('.page-deep').setAttribute('aria-label',item.page3);
+  document.querySelector('.page-front').setAttribute('aria-label',item.front);
+  document.getElementById('turn-page').textContent=item.next;
+  document.getElementById('turn-page-3').textContent=item.next+' ➜';
+  document.getElementById('turn-back').textContent=item.back;
+  document.getElementById('turn-back-3').textContent='⬅ '+item.back;
+  rows.forEach((row,i)=>{row.querySelector('button').textContent=item.action;});
   table.hidden=true;toggle.setAttribute('aria-expanded','false');
- }));
+ }
+ document.querySelectorAll('.choose-button').forEach(button=>button.addEventListener('click',()=>applyLanguage(Number(button.dataset.index))));
 })();
 </script>
 </body>
