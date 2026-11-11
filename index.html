@@ -3,38 +3,56 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Powitania świata 🦄</title>
+  <title>Powitania świata</title>
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0; min-height: 100vh; display: flex; flex-direction: column;
       align-items: center; justify-content: center; padding: 24px;
-      font-family: Arial, sans-serif; text-align: center; color: #653477;
+      font-family: Arial, sans-serif; text-align: center; color: #49345a;
       background: linear-gradient(135deg, #fff0fb, #e9f9ff);
     }
     main { flex: 1; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; }
-    h1 { margin: 0; font-size: clamp(2.8rem, 10vw, 5rem); }
-    .greeting-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; }
-    #greeting { margin: 0; min-width: 120px; font-size: clamp(2rem, 7vw, 3.5rem); color: #159e9e; }
+    h1 { margin: 0; font-size: clamp(2rem, 8vw, 3.5rem); }
+    .greeting-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px; }
+    #greeting { margin: 0; min-width: 120px; font-size: clamp(2.5rem, 8vw, 4rem); color: #159e9e; }
     button {
-      border: 0; border-radius: 999px; padding: 14px 22px; cursor: pointer;
+      border: 0; border-radius: 999px; padding: 13px 20px; cursor: pointer;
       background: #159e9e; color: white; font-size: 1rem; font-weight: 700;
       box-shadow: 0 4px 12px #159e9e35;
     }
     button:hover { background: #117f82; }
     button:focus-visible { outline: 3px solid #653477; outline-offset: 4px; }
     #language { margin: 0; color: #765783; font-size: 1rem; }
+    #language-table { width: min(100%, 520px); border-collapse: collapse; background: #ffffffdf; border-radius: 14px; overflow: hidden; }
+    #language-table th, #language-table td { padding: 12px; border-bottom: 1px solid #ead8ed; }
+    #language-table th { background: #dff6f4; }
+    #language-table tr:last-child td { border-bottom: 0; }
+    #language-table td:last-child { text-align: right; }
+    .choose-button { padding: 9px 15px; font-size: .9rem; }
+    [hidden] { display: none !important; }
     footer { width: 100%; padding: 18px; background: #ffffffb8; border-top: 1px solid #ead8ed; }
   </style>
 </head>
 <body>
   <main>
-    <h1 aria-label="Jednorożec">🦄</h1>
+    <h1>Powitania świata</h1>
     <div class="greeting-row">
       <h2 id="greeting" aria-live="polite">Hej!</h2>
-      <button id="change-language" type="button">Zmień język 🌍</button>
+      <button id="change-language" type="button" aria-expanded="false" aria-controls="language-table">Zmień język 🌍</button>
     </div>
-    <p id="language">Język: polski 🇵🇱</p>
+    <p id="language">Wybrany język: polski 🇵🇱</p>
+    <table id="language-table" hidden>
+      <thead><tr><th>Język</th><th>Powitanie</th><th>Wybierz</th></tr></thead>
+      <tbody>
+        <tr><td>🇵🇱 Polski</td><td>Hej!</td><td><button class="choose-button" data-index="0">Wybierz</button></td></tr>
+        <tr><td>🇬🇧 Angielski</td><td>Hello!</td><td><button class="choose-button" data-index="1">Wybierz</button></td></tr>
+        <tr><td>🇩🇪 Niemiecki</td><td>Hallo!</td><td><button class="choose-button" data-index="2">Wybierz</button></td></tr>
+        <tr><td>🇫🇷 Francuski</td><td>Salut!</td><td><button class="choose-button" data-index="3">Wybierz</button></td></tr>
+        <tr><td>🇪🇸 Hiszpański</td><td>¡Hola!</td><td><button class="choose-button" data-index="4">Wybierz</button></td></tr>
+        <tr><td>🇮🇹 Włoski</td><td>Ciao!</td><td><button class="choose-button" data-index="5">Wybierz</button></td></tr>
+      </tbody>
+    </table>
   </main>
   <footer>👀 Odwiedziny strony: <span id="visits">...</span></footer>
   <script>
@@ -46,14 +64,25 @@
       { text: '¡Hola!', language: 'hiszpański 🇪🇸' },
       { text: 'Ciao!', language: 'włoski 🇮🇹' }
     ];
-    let current = 0;
     const greeting = document.getElementById('greeting');
     const language = document.getElementById('language');
+    const table = document.getElementById('language-table');
+    const toggle = document.getElementById('change-language');
 
-    document.getElementById('change-language').addEventListener('click', () => {
-      current = (current + 1) % greetings.length;
-      greeting.textContent = greetings[current].text;
-      language.textContent = 'Język: ' + greetings[current].language;
+    toggle.addEventListener('click', () => {
+      const isOpening = table.hidden;
+      table.hidden = !isOpening;
+      toggle.setAttribute('aria-expanded', String(isOpening));
+    });
+
+    document.querySelectorAll('.choose-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const selected = greetings[Number(button.dataset.index)];
+        greeting.textContent = selected.text;
+        language.textContent = 'Wybrany język: ' + selected.language;
+        table.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+      });
     });
 
     const key = 'lilabotslab-page-visits';
