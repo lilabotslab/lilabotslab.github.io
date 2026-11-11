@@ -34,7 +34,8 @@
     .unicorn { display: block; width: min(65%, 320px); max-height: 260px; object-fit: contain; }
     .turn-control { position: absolute; bottom: 72px; z-index: 3; }
     .turn-forward { right: 24px; }
-    .turn-back { left: 24px; }
+    .turn-back { left: 24px; visibility: hidden; }
+    .page-stack.is-flipped .turn-back { visibility: visible; }
     footer { position: absolute; bottom: 0; left: 0; width: 100%; padding: 18px; background: #ffffffb8; border-top: 1px solid #ead8ed; }
     @media (prefers-reduced-motion: reduce) { .page-leaf { transition: none; } }
   </style>
@@ -123,8 +124,15 @@
         toggle.setAttribute('aria-expanded', 'false');
       });
     });
-    document.getElementById('turn-page').addEventListener('click', () => leaf.classList.add('flipped'));
-    document.getElementById('turn-back').addEventListener('click', () => leaf.classList.remove('flipped'));
+    const pageStack = document.querySelector('.page-stack');
+    document.getElementById('turn-page').addEventListener('click', () => {
+      leaf.classList.add('flipped');
+      pageStack.classList.add('is-flipped');
+    });
+    document.getElementById('turn-back').addEventListener('click', () => {
+      leaf.classList.remove('flipped');
+      pageStack.classList.remove('is-flipped');
+    });
     const savedLanguage = Number(localStorage.getItem('lilabotslab-language') || 0);
     applyLanguage(Number.isInteger(savedLanguage) && savedLanguage >= 0 && savedLanguage < translations.length ? savedLanguage : 0);
     const key = 'lilabotslab-page-visits';
