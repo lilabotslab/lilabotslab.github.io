@@ -25,7 +25,7 @@
     .book-scene { width: 100%; min-height: 100vh; perspective: 1800px; }
     .page-stack { position: relative; width: 100%; min-height: 100vh; }
     .page-under, .page-leaf { position: absolute; inset: 0; min-height: 100vh; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
-    .page-under { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 24px 18px 76px; background: #fdebf4; }
+    .page-under { position: absolute; z-index: 1; inset: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 24px 18px 76px; background: #fdebf4; transform-origin: left center; transform-style: preserve-3d; backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: transform 1.05s cubic-bezier(.6,.05,.25,1); }\n    .page-under.flipped { transform: rotateY(-180deg); }\n    .page-deep { position: absolute; z-index: 0; inset: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px 18px 88px; overflow: hidden; background: linear-gradient(145deg,#ead4b5,#b99570); }\n    .stairs-photo { display: block; width: min(100%, 760px); max-height: 72vh; object-fit: contain; filter: drop-shadow(0 18px 22px #4b321f55); transform: perspective(900px) rotateX(2deg); }\n    .page-deep h2 { margin: 0; color: #63452e; font-size: clamp(1.2rem,4vw,2rem); }
     .page-leaf { transform-origin: left center; transform-style: preserve-3d; transition: transform 1.05s cubic-bezier(.6,.05,.25,1); background: #efffff; z-index: 2; overflow: hidden; }
     .page-leaf::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; background: linear-gradient(90deg, #0000 70%, #49345a30 100%); transition: opacity .4s; }
     .page-leaf.flipped { transform: rotateY(-180deg); }
@@ -47,10 +47,10 @@
         <h1 id="back-title">Magiczna strona ✨</h1>
         <p id="back-description">Tutaj mieszka jednorożec!</p>
         <img class="unicorn" src="https://img2.clipart-library.com/26/transparent-unicorn-clipart/transparent-unicorn-clipart-12.jpg" alt="Kolorowy jednorożec z tęczową grzywą">
-        <button id="turn-back" class="turn-control turn-back" type="button">Wróć</button>
+        <button id="turn-back" class="turn-control turn-back" type="button">Wróć</button>\n        <button id="turn-page-3" class="turn-control turn-forward" type="button">Dalej ➜</button>
         <footer><span id="visits-label-back">👀 Odwiedziny strony:</span> <span class="visit-count">...</span></footer>
       </section>
-      <div class="page-leaf" id="page-leaf">
+      <section class="page-deep" aria-label="Trzecia kartka">\n        <h2>W głąb schodów 🤎</h2>\n        <img class="stairs-photo" src="data:image/jpeg;base64,REPLACE_IMAGE_DATA" alt="Schody widziane z góry, prowadzące w dół">\n        <button id="turn-back-3" class="turn-control turn-back" type="button" style="visibility:visible">⬅ Wróć</button>\n      </section>\n      <div class="page-leaf" id="page-leaf">
         <section class="page-front" aria-label="Przód kartki">
           <main>
             <h1 id="page-title">Powitania świata</h1>
@@ -129,7 +129,7 @@
       leaf.classList.add('flipped');
       pageStack.classList.add('is-flipped');
     });
-    document.getElementById('turn-back').addEventListener('click', () => {
+    document.getElementById('turn-page-3').addEventListener('click', () => {\n      document.querySelector('.page-under').classList.add('flipped');\n    });\n    document.getElementById('turn-back-3').addEventListener('click', () => {\n      document.querySelector('.page-under').classList.remove('flipped');\n    });\n    document.getElementById('turn-back').addEventListener('click', () => {
       leaf.classList.remove('flipped');
       pageStack.classList.remove('is-flipped');
     });
