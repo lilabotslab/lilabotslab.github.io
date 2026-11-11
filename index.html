@@ -22,50 +22,56 @@
     #language-table td:last-child { text-align: right; }
     .choose-button { padding: 9px 15px; font-size: .9rem; }
     [hidden] { display: none !important; }
-    .book-scene { width: min(100%, 720px); perspective: 1400px; }
-    .page-card { position: relative; width: 100%; min-height: 470px; transform-style: preserve-3d; transition: transform .85s cubic-bezier(.2,.7,.2,1); }
-    .page-card.flipped { transform: rotateY(180deg); }
-    .page-face { position: absolute; inset: 0; min-height: 470px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px; border: 2px solid #ead8ed; border-radius: 20px; background: #ffffffd9; box-shadow: 0 14px 35px #49345a20; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: auto; }
-    .page-back { transform: rotateY(180deg); background: linear-gradient(145deg, #fff9ff, #e4fbfa); gap: 18px; }
+    .book-scene { width: min(100%, 720px); perspective: 1800px; }
+    .page-stack { position: relative; width: 100%; min-height: 470px; }
+    .page-under, .page-leaf { position: absolute; inset: 0; min-height: 470px; border: 2px solid #ead8ed; border-radius: 20px; background: linear-gradient(145deg, #fff9ff, #e4fbfa); box-shadow: 0 14px 35px #49345a20; }
+    .page-under { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 18px; }
+    .page-leaf { transform-origin: left center; transform-style: preserve-3d; transition: transform 1.05s cubic-bezier(.6,.05,.25,1); background: #fff; z-index: 2; overflow: hidden; }
+    .page-leaf::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; background: linear-gradient(90deg, #0000 70%, #49345a30 100%); transition: opacity .4s; }
+    .page-leaf.flipped { transform: rotateY(-180deg); }
+    .page-leaf.flipped::after { opacity: 1; }
+    .page-front { position: absolute; inset: 0; min-height: 470px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px; border-radius: 18px; background: #ffffffed; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
     .unicorn { display: block; width: min(65%, 270px); max-height: 190px; object-fit: contain; }
-    .turn-control { position: absolute; bottom: 18px; z-index: 2; }
+    .turn-control { position: absolute; bottom: 18px; z-index: 3; }
     .turn-forward { right: 18px; }
     .turn-back { left: 18px; }
     footer { width: 100%; padding: 18px; margin-top: 18px; background: #ffffffb8; border-top: 1px solid #ead8ed; }
-    @media (prefers-reduced-motion: reduce) { .page-card { transition: none; } }
+    @media (prefers-reduced-motion: reduce) { .page-leaf { transition: none; } }
   </style>
 </head>
 <body>
   <div class="book-scene">
-    <div class="page-card" id="page-card">
-      <section class="page-face page-front" aria-label="Przód kartki">
-        <main>
-          <h1 id="page-title">Powitania świata</h1>
-          <div class="greeting-row">
-            <h2 id="greeting" aria-live="polite">Hej!</h2>
-            <button id="change-language" type="button" aria-expanded="false" aria-controls="language-table">Zmień język 🌍</button>
-          </div>
-          <p id="language">Wybrany język: Polski 🇵🇱</p>
-          <table id="language-table" hidden>
-            <thead><tr><th id="table-language">Język</th><th id="table-greeting">Powitanie</th><th id="table-action">Wybierz</th></tr></thead>
-            <tbody>
-              <tr><td>🇵🇱 Polski</td><td>Hej!</td><td><button class="choose-button" data-index="0">Wybierz</button></td></tr>
-              <tr><td>🇬🇧 English</td><td>Hello!</td><td><button class="choose-button" data-index="1">Wybierz</button></td></tr>
-              <tr><td>🇩🇪 Deutsch</td><td>Hallo!</td><td><button class="choose-button" data-index="2">Wybierz</button></td></tr>
-              <tr><td>🇫🇷 Français</td><td>Salut!</td><td><button class="choose-button" data-index="3">Wybierz</button></td></tr>
-              <tr><td>🇪🇸 Español</td><td>¡Hola!</td><td><button class="choose-button" data-index="4">Wybierz</button></td></tr>
-              <tr><td>🇮🇹 Italiano</td><td>Ciao!</td><td><button class="choose-button" data-index="5">Wybierz</button></td></tr>
-            </tbody>
-          </table>
-        </main>
-        <button id="turn-page" class="turn-control turn-forward" type="button">Dalej ➜</button>
-      </section>
-      <section class="page-face page-back" aria-label="Tył kartki">
+    <div class="page-stack">
+      <section class="page-under" aria-label="Druga strona kartki">
         <h1 id="back-title">Magiczna strona ✨</h1>
         <p id="back-description">Tutaj mieszka jednorożec!</p>
         <img class="unicorn" src="https://img2.clipart-library.com/26/transparent-unicorn-clipart/transparent-unicorn-clipart-12.jpg" alt="Kolorowy jednorożec z tęczową grzywą">
-        <button id="turn-back" class="turn-control turn-back" type="button">⬅ Wróć</button>
+        <button id="turn-back" class="turn-control turn-back" type="button">Wróć</button>
       </section>
+      <div class="page-leaf" id="page-leaf">
+        <section class="page-front" aria-label="Przód kartki">
+          <main>
+            <h1 id="page-title">Powitania świata</h1>
+            <div class="greeting-row">
+              <h2 id="greeting" aria-live="polite">Hej!</h2>
+              <button id="change-language" type="button" aria-expanded="false" aria-controls="language-table">Zmień język 🌍</button>
+            </div>
+            <p id="language">Wybrany język: Polski 🇵🇱</p>
+            <table id="language-table" hidden>
+              <thead><tr><th id="table-language">Język</th><th id="table-greeting">Powitanie</th><th id="table-action">Wybierz</th></tr></thead>
+              <tbody>
+                <tr><td>🇵🇱 Polski</td><td>Hej!</td><td><button class="choose-button" data-index="0">Wybierz</button></td></tr>
+                <tr><td>🇬🇧 English</td><td>Hello!</td><td><button class="choose-button" data-index="1">Wybierz</button></td></tr>
+                <tr><td>🇩🇪 Deutsch</td><td>Hallo!</td><td><button class="choose-button" data-index="2">Wybierz</button></td></tr>
+                <tr><td>🇫🇷 Français</td><td>Salut!</td><td><button class="choose-button" data-index="3">Wybierz</button></td></tr>
+                <tr><td>🇪🇸 Español</td><td>¡Hola!</td><td><button class="choose-button" data-index="4">Wybierz</button></td></tr>
+                <tr><td>🇮🇹 Italiano</td><td>Ciao!</td><td><button class="choose-button" data-index="5">Wybierz</button></td></tr>
+              </tbody>
+            </table>
+          </main>
+          <button id="turn-page" class="turn-control turn-forward" type="button">Dalej</button>
+        </section>
+      </div>
     </div>
   </div>
   <footer><span id="visits-label">👀 Odwiedziny strony:</span> <span id="visits">...</span></footer>
@@ -83,7 +89,7 @@
     const table = document.getElementById('language-table');
     const toggle = document.getElementById('change-language');
     const chooseButtons = document.querySelectorAll('.choose-button');
-    const card = document.getElementById('page-card');
+    const leaf = document.getElementById('page-leaf');
     function applyLanguage(index) {
       const t = translations[index];
       document.documentElement.lang = t.code;
@@ -115,8 +121,8 @@
         toggle.setAttribute('aria-expanded', 'false');
       });
     });
-    document.getElementById('turn-page').addEventListener('click', () => card.classList.add('flipped'));
-    document.getElementById('turn-back').addEventListener('click', () => card.classList.remove('flipped'));
+    document.getElementById('turn-page').addEventListener('click', () => leaf.classList.add('flipped'));
+    document.getElementById('turn-back').addEventListener('click', () => leaf.classList.remove('flipped'));
     const savedLanguage = Number(localStorage.getItem('lilabotslab-language') || 0);
     applyLanguage(Number.isInteger(savedLanguage) && savedLanguage >= 0 && savedLanguage < translations.length ? savedLanguage : 0);
     const key = 'lilabotslab-page-visits';
