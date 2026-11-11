@@ -27,7 +27,10 @@
     .page-card.flipped { transform: rotateY(180deg); }
     .page-face { position: absolute; inset: 0; min-height: 470px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px; border: 2px solid #ead8ed; border-radius: 20px; background: #ffffffd9; box-shadow: 0 14px 35px #49345a20; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: auto; }
     .page-back { transform: rotateY(180deg); background: linear-gradient(145deg, #fff9ff, #e4fbfa); gap: 18px; }
-    .page-back img { display: block; width: min(80%, 360px); max-height: 270px; object-fit: contain; }
+    .unicorn { display: block; width: min(65%, 270px); max-height: 190px; object-fit: contain; }
+    .turn-control { position: absolute; bottom: 18px; z-index: 2; }
+    .turn-forward { right: 18px; }
+    .turn-back { left: 18px; }
     footer { width: 100%; padding: 18px; margin-top: 18px; background: #ffffffb8; border-top: 1px solid #ead8ed; }
     @media (prefers-reduced-motion: reduce) { .page-card { transition: none; } }
   </style>
@@ -43,7 +46,7 @@
             <button id="change-language" type="button" aria-expanded="false" aria-controls="language-table">Zmień język 🌍</button>
           </div>
           <p id="language">Wybrany język: Polski 🇵🇱</p>
-          <button id="turn-page" type="button">Następna strona ➜</button>
+          <img class="unicorn" src="https://img2.clipart-library.com/26/transparent-unicorn-clipart/transparent-unicorn-clipart-12.jpg" alt="Kolorowy jednorożec z tęczową grzywą">
           <table id="language-table" hidden>
             <thead><tr><th id="table-language">Język</th><th id="table-greeting">Powitanie</th><th id="table-action">Wybierz</th></tr></thead>
             <tbody>
@@ -56,24 +59,25 @@
             </tbody>
           </table>
         </main>
+        <button id="turn-page" class="turn-control turn-forward" type="button">Dalej ➜</button>
       </section>
       <section class="page-face page-back" aria-label="Tył kartki">
         <h1 id="back-title">Magiczna strona ✨</h1>
         <p id="back-description">Tutaj mieszka jednorożec!</p>
-        <img src="https://img2.clipart-library.com/26/transparent-unicorn-clipart/transparent-unicorn-clipart-12.jpg" alt="Kolorowy jednorożec z tęczową grzywą">
-        <button id="turn-back" type="button">⬅ Wróć do powitań</button>
+        <img class="unicorn" src="https://img2.clipart-library.com/26/transparent-unicorn-clipart/transparent-unicorn-clipart-12.jpg" alt="Kolorowy jednorożec z tęczową grzywą">
+        <button id="turn-back" class="turn-control turn-back" type="button">⬅ Wróć</button>
       </section>
     </div>
   </div>
   <footer><span id="visits-label">👀 Odwiedziny strony:</span> <span id="visits">...</span></footer>
   <script>
     const translations = [
-      { code:'pl', name:'Polski 🇵🇱', title:'Powitania świata', greeting:'Hej!', change:'Zmień język 🌍', selected:'Wybrany język:', tableLanguage:'Język', tableGreeting:'Powitanie', tableAction:'Wybierz', choose:'Wybierz', visits:'👀 Odwiedziny strony:', next:'Następna strona ➜', backTitle:'Magiczna strona ✨', backDescription:'Tutaj mieszka jednorożec!', back:'⬅ Wróć do powitań' },
-      { code:'en', name:'English 🇬🇧', title:'World Greetings', greeting:'Hello!', change:'Change language 🌍', selected:'Selected language:', tableLanguage:'Language', tableGreeting:'Greeting', tableAction:'Choose', choose:'Choose', visits:'👀 Page visits:', next:'Turn the page ➜', backTitle:'Magic page ✨', backDescription:'A unicorn lives here!', back:'⬅ Back to greetings' },
-      { code:'de', name:'Deutsch 🇩🇪', title:'Grüße aus aller Welt', greeting:'Hallo!', change:'Sprache ändern 🌍', selected:'Ausgewählte Sprache:', tableLanguage:'Sprache', tableGreeting:'Begrüßung', tableAction:'Auswählen', choose:'Auswählen', visits:'👀 Seitenaufrufe:', next:'Zur nächsten Seite ➜', backTitle:'Zauberseite ✨', backDescription:'Hier wohnt ein Einhorn!', back:'⬅ Zurück zu den Grüßen' },
-      { code:'fr', name:'Français 🇫🇷', title:'Salutations du monde', greeting:'Salut !', change:'Changer de langue 🌍', selected:'Langue choisie :', tableLanguage:'Langue', tableGreeting:'Salutation', tableAction:'Choisir', choose:'Choisir', visits:'👀 Visites de la page :', next:'Tourner la page ➜', backTitle:'Page magique ✨', backDescription:'Une licorne habite ici !', back:'⬅ Retour aux salutations' },
-      { code:'es', name:'Español 🇪🇸', title:'Saludos del mundo', greeting:'¡Hola!', change:'Cambiar idioma 🌍', selected:'Idioma seleccionado:', tableLanguage:'Idioma', tableGreeting:'Saludo', tableAction:'Elegir', choose:'Elegir', visits:'👀 Visitas a la página:', next:'Pasar la página ➜', backTitle:'Página mágica ✨', backDescription:'¡Aquí vive un unicornio!', back:'⬅ Volver a los saludos' },
-      { code:'it', name:'Italiano 🇮🇹', title:'Saluti dal mondo', greeting:'Ciao!', change:'Cambia lingua 🌍', selected:'Lingua selezionata:', tableLanguage:'Lingua', tableGreeting:'Saluto', tableAction:'Scegli', choose:'Scegli', visits:'👀 Visite della pagina:', next:'Gira la pagina ➜', backTitle:'Pagina magica ✨', backDescription:'Qui vive un unicorno!', back:'⬅ Torna ai saluti' }
+      { code:'pl', name:'Polski 🇵🇱', title:'Powitania świata', greeting:'Hej!', change:'Zmień język 🌍', selected:'Wybrany język:', tableLanguage:'Język', tableGreeting:'Powitanie', tableAction:'Wybierz', choose:'Wybierz', visits:'👀 Odwiedziny strony:', next:'Dalej ➜', backTitle:'Magiczna strona ✨', backDescription:'Tutaj mieszka jednorożec!', back:'⬅ Wróć do powitań' },
+      { code:'en', name:'English 🇬🇧', title:'World Greetings', greeting:'Hello!', change:'Change language 🌍', selected:'Selected language:', tableLanguage:'Language', tableGreeting:'Greeting', tableAction:'Choose', choose:'Choose', visits:'👀 Page visits:', next:'Next ➜', backTitle:'Magic page ✨', backDescription:'A unicorn lives here!', back:'⬅ Back to greetings' },
+      { code:'de', name:'Deutsch 🇩🇪', title:'Grüße aus aller Welt', greeting:'Hallo!', change:'Sprache ändern 🌍', selected:'Ausgewählte Sprache:', tableLanguage:'Sprache', tableGreeting:'Begrüßung', tableAction:'Auswählen', choose:'Auswählen', visits:'👀 Seitenaufrufe:', next:'Weiter ➜', backTitle:'Zauberseite ✨', backDescription:'Hier wohnt ein Einhorn!', back:'⬅ Zurück zu den Grüßen' },
+      { code:'fr', name:'Français 🇫🇷', title:'Salutations du monde', greeting:'Salut !', change:'Changer de langue 🌍', selected:'Langue choisie :', tableLanguage:'Langue', tableGreeting:'Salutation', tableAction:'Choisir', choose:'Choisir', visits:'👀 Visites de la page :', next:'Suivant ➜', backTitle:'Page magique ✨', backDescription:'Une licorne habite ici !', back:'⬅ Retour aux salutations' },
+      { code:'es', name:'Español 🇪🇸', title:'Saludos del mundo', greeting:'¡Hola!', change:'Cambiar idioma 🌍', selected:'Idioma seleccionado:', tableLanguage:'Idioma', tableGreeting:'Saludo', tableAction:'Elegir', choose:'Elegir', visits:'👀 Visitas a la página:', next:'Siguiente ➜', backTitle:'Página mágica ✨', backDescription:'¡Aquí vive un unicornio!', back:'⬅ Volver a los saludos' },
+      { code:'it', name:'Italiano 🇮🇹', title:'Saluti dal mondo', greeting:'Ciao!', change:'Cambia lingua 🌍', selected:'Lingua selezionata:', tableLanguage:'Lingua', tableGreeting:'Saluto', tableAction:'Scegli', choose:'Scegli', visits:'👀 Visite della pagina:', next:'Avanti ➜', backTitle:'Pagina magica ✨', backDescription:'Qui vive un unicorno!', back:'⬅ Torna ai saluti' }
     ];
     const greeting = document.getElementById('greeting');
     const language = document.getElementById('language');
