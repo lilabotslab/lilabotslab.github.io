@@ -27,9 +27,9 @@
     .page-under, .page-leaf { position: absolute; inset: 0; min-height: 100vh; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
     .page-under { position: absolute; z-index: 1; inset: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 24px 18px 76px; background: #fdebf4; transform-origin: left center; transform-style: preserve-3d; backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: transform 1.05s cubic-bezier(.6,.05,.25,1); }
     .page-under.flipped { transform: rotateY(-180deg); }
-    .page-deep { position: absolute; z-index: 0; inset: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px 18px 88px; overflow: hidden; background: linear-gradient(145deg,#ead4b5,#b99570); }
+    .page-deep { position: absolute; z-index: 0; inset: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px 18px 88px; overflow: hidden; background: linear-gradient(145deg,#eadcff,#b995e8 55%,#8055b5); }
     .stairs-photo { display: block; width: min(100%, 1000px); height: min(88vh, 900px); object-fit: contain; filter: drop-shadow(0 22px 34px #160d2b88); transform: perspective(1100px) rotateX(1deg); }
-    .page-deep h2 { margin: 0; color: #63452e; font-size: clamp(1.2rem,4vw,2rem); }
+    .page-deep h2 { margin: 0; color: #49305f; font-size: clamp(1.2rem,4vw,2rem); }
     .page-leaf { transform-origin: left center; transform-style: preserve-3d; transition: transform 1.05s cubic-bezier(.6,.05,.25,1); background: #efffff; z-index: 2; overflow: hidden; }
     .page-leaf::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; background: linear-gradient(90deg, #0000 70%, #49345a30 100%); transition: opacity .4s; }
     .page-leaf.flipped { transform: rotateY(-180deg); }
@@ -53,7 +53,6 @@
         <img class="unicorn" src="https://img2.clipart-library.com/26/transparent-unicorn-clipart/transparent-unicorn-clipart-12.jpg" alt="Kolorowy jednorożec z tęczową grzywą">
         <button id="turn-back" class="turn-control turn-back" type="button">Wróć</button>
         <button id="turn-page-3" class="turn-control turn-forward" type="button">Dalej ➜</button>
-        
       </section>
       <section class="page-deep" aria-label="Trzecia kartka">
         <img class="stairs-photo" src="/file_00000000c9e8820a807603ce0b1b3dca.gif" alt="Ilustracja schodów prowadzących do świetlistego portalu">
@@ -81,13 +80,10 @@
             </table>
           </main>
           <button id="turn-page" class="turn-control turn-forward" type="button">Dalej</button>
-          
         </section>
       </div>
     </div>
   </div>
-  
-
 <script>
 (() => {
  const leaf=document.getElementById('page-leaf');
@@ -109,6 +105,5 @@
  }));
 })();
 </script>
-
 </body>
 </html>
