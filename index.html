@@ -87,5 +87,28 @@
     </div>
   </div>
   
+
+<script>
+(() => {
+ const leaf=document.getElementById('page-leaf');
+ const stack=document.querySelector('.page-stack');
+ const under=document.querySelector('.page-under');
+ const flip=(el,on)=>el.classList.toggle('flipped',on);
+ document.getElementById('turn-page').addEventListener('click',()=>{flip(leaf,true);stack.classList.add('is-flipped');});
+ document.getElementById('turn-back').addEventListener('click',()=>{flip(under,false);flip(leaf,false);stack.classList.remove('is-flipped');});
+ document.getElementById('turn-page-3').addEventListener('click',()=>flip(under,true));
+ document.getElementById('turn-back-3').addEventListener('click',()=>flip(under,false));
+ const toggle=document.getElementById('change-language'),table=document.getElementById('language-table');
+ toggle.addEventListener('click',()=>{table.hidden=!table.hidden;toggle.setAttribute('aria-expanded',String(!table.hidden));});
+ const languages=[['Polski 🇵🇱','Hej!'],['English 🇬🇧','Hello!'],['Deutsch 🇩🇪','Hallo!'],['Français 🇫🇷','Salut!'],['Español 🇪🇸','¡Hola!'],['Italiano 🇮🇹','Ciao!']];
+ document.querySelectorAll('.choose-button').forEach(button=>button.addEventListener('click',()=>{
+  const [name,greeting]=languages[Number(button.dataset.index)];
+  document.getElementById('greeting').textContent=greeting;
+  document.getElementById('language').textContent='Wybrany język: '+name;
+  table.hidden=true;toggle.setAttribute('aria-expanded','false');
+ }));
+})();
+</script>
+
 </body>
 </html>
