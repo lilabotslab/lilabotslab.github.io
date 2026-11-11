@@ -40,7 +40,7 @@
     .page-leaf.flipped { transform: rotateY(-180deg); }
     .page-leaf.flipped::after { opacity: 1; }
     .page-front { position: absolute; inset: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px; background: #efffff; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-    .unicorn { display: block; width: min(88%, 520px); max-height: min(58vh, 440px); object-fit: contain; }
+    .unicorn { display: block; width: min(96%, 1200px); height: min(78vh, 900px); max-height: 78vh; object-fit: contain; }
     .turn-control { position: absolute; bottom: 72px; z-index: 3; }
     .turn-forward { right: 24px; }
     .turn-back { left: 24px; visibility: hidden; }
@@ -54,7 +54,6 @@
     <div class="page-stack">
       <section class="page-under" aria-label="Druga strona kartki">
         <h1 id="back-title">Magiczna strona ✨</h1>
-        <p id="back-description">Tutaj mieszka jednorożec!</p>
         <img class="unicorn" src="https://townsquare.media/site/341/files/2013/07/FlufflePuff.jpg?a=t&h=0&q=89&s=0&w=1200&zc=1" alt="Różowy, puszysty jednorożec Fluffle Puff na tęczy">
         <button id="turn-back" class="turn-control turn-back" type="button">Wróć</button>
         <button id="turn-page-3" class="turn-control turn-forward" type="button">Dalej ➜</button>
@@ -121,7 +120,6 @@
   document.getElementById('table-greeting').textContent=item.greetingLabel;
   document.getElementById('table-action').textContent=item.action;
   document.getElementById('back-title').textContent=item.magic;
-  document.getElementById('back-description').textContent=item.description;
   document.querySelector('.unicorn').alt=item.unicorn;
   document.querySelector('.page-under').setAttribute('aria-label',item.page2);
   document.querySelector('.page-deep').setAttribute('aria-label',item.page3);
