@@ -26,11 +26,11 @@
     .page-stack { position: relative; width: 100%; min-height: 100vh; }
     .page-under, .page-leaf { position: absolute; inset: 0; min-height: 100vh; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
     .page-under { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 24px 18px 76px; }
-    .page-leaf { transform-origin: left center; transform-style: preserve-3d; transition: transform 1.05s cubic-bezier(.6,.05,.25,1); background: linear-gradient(135deg, #fff0fb, #e9f9ff); z-index: 2; overflow: hidden; }
+    .page-leaf { transform-origin: left center; transform-style: preserve-3d; transition: transform 1.05s cubic-bezier(.6,.05,.25,1); background: #e2f8f7; z-index: 2; overflow: hidden; }
     .page-leaf::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; background: linear-gradient(90deg, #0000 70%, #49345a30 100%); transition: opacity .4s; }
     .page-leaf.flipped { transform: rotateY(-180deg); }
     .page-leaf.flipped::after { opacity: 1; }
-    .page-front { position: absolute; inset: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px; background: linear-gradient(135deg, #fff0fb, #e9f9ff); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .page-front { position: absolute; inset: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px; background: #e2f8f7; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
     .unicorn { display: block; width: min(65%, 320px); max-height: 260px; object-fit: contain; }
     .turn-control { position: absolute; bottom: 72px; z-index: 3; }
     .turn-forward { right: 24px; }
