@@ -27,14 +27,14 @@
 </head>
 <body>
   <main>
-    <h1>Powitania świata</h1>
+    <h1 id="page-title">Powitania świata</h1>
     <div class="greeting-row">
       <h2 id="greeting" aria-live="polite">Hej!</h2>
       <button id="change-language" type="button" aria-expanded="false" aria-controls="language-table">Zmień język 🌍</button>
     </div>
     <p id="language">Wybrany język: Polski 🇵🇱</p>
     <table id="language-table" hidden>
-      <thead><tr><th>Język</th><th>Powitanie</th><th>Wybierz</th></tr></thead>
+      <thead><tr><th id="table-language">Język</th><th id="table-greeting">Powitanie</th><th id="table-action">Wybierz</th></tr></thead>
       <tbody>
         <tr><td>🇵🇱 Polski</td><td>Hej!</td><td><button class="choose-button" data-index="0">Wybierz</button></td></tr>
         <tr><td>🇬🇧 English</td><td>Hello!</td><td><button class="choose-button" data-index="1">Wybierz</button></td></tr>
@@ -45,30 +45,43 @@
       </tbody>
     </table>
   </main>
-  <footer>👀 Odwiedziny strony: <span id="visits">...</span></footer>
+  <footer><span id="visits-label">👀 Odwiedziny strony:</span> <span id="visits">...</span></footer>
   <script>
-    const greetings = [
-      { text: 'Hej!', language: 'Polski 🇵🇱' },
-      { text: 'Hello!', language: 'English 🇬🇧' },
-      { text: 'Hallo!', language: 'Deutsch 🇩🇪' },
-      { text: 'Salut!', language: 'Français 🇫🇷' },
-      { text: '¡Hola!', language: 'Español 🇪🇸' },
-      { text: 'Ciao!', language: 'Italiano 🇮🇹' }
+    const translations = [
+      { code: 'pl', name: 'Polski 🇵🇱', title: 'Powitania świata', greeting: 'Hej!', change: 'Zmień język 🌍', selected: 'Wybrany język:', tableLanguage: 'Język', tableGreeting: 'Powitanie', tableAction: 'Wybierz', choose: 'Wybierz', visits: '👀 Odwiedziny strony:' },
+      { code: 'en', name: 'English 🇬🇧', title: 'World Greetings', greeting: 'Hello!', change: 'Change language 🌍', selected: 'Selected language:', tableLanguage: 'Language', tableGreeting: 'Greeting', tableAction: 'Choose', choose: 'Choose', visits: '👀 Page visits:' },
+      { code: 'de', name: 'Deutsch 🇩🇪', title: 'Grüße aus aller Welt', greeting: 'Hallo!', change: 'Sprache ändern 🌍', selected: 'Ausgewählte Sprache:', tableLanguage: 'Sprache', tableGreeting: 'Begrüßung', tableAction: 'Auswählen', choose: 'Auswählen', visits: '👀 Seitenaufrufe:' },
+      { code: 'fr', name: 'Français 🇫🇷', title: 'Salutations du monde', greeting: 'Salut !', change: 'Changer de langue 🌍', selected: 'Langue choisie :', tableLanguage: 'Langue', tableGreeting: 'Salutation', tableAction: 'Choisir', choose: 'Choisir', visits: '👀 Visites de la page :' },
+      { code: 'es', name: 'Español 🇪🇸', title: 'Saludos del mundo', greeting: '¡Hola!', change: 'Cambiar idioma 🌍', selected: 'Idioma seleccionado:', tableLanguage: 'Idioma', tableGreeting: 'Saludo', tableAction: 'Elegir', choose: 'Elegir', visits: '👀 Visitas a la página:' },
+      { code: 'it', name: 'Italiano 🇮🇹', title: 'Saluti dal mondo', greeting: 'Ciao!', change: 'Cambia lingua 🌍', selected: 'Lingua selezionata:', tableLanguage: 'Lingua', tableGreeting: 'Saluto', tableAction: 'Scegli', choose: 'Scegli', visits: '👀 Visite della pagina:' }
     ];
     const greeting = document.getElementById('greeting');
     const language = document.getElementById('language');
     const table = document.getElementById('language-table');
     const toggle = document.getElementById('change-language');
+    const chooseButtons = document.querySelectorAll('.choose-button');
+    function applyLanguage(index) {
+      const t = translations[index];
+      document.documentElement.lang = t.code;
+      document.title = t.title;
+      document.getElementById('page-title').textContent = t.title;
+      greeting.textContent = t.greeting;
+      toggle.textContent = t.change;
+      language.textContent = t.selected + ' ' + t.name;
+      document.getElementById('table-language').textContent = t.tableLanguage;
+      document.getElementById('table-greeting').textContent = t.tableGreeting;
+      document.getElementById('table-action').textContent = t.tableAction;
+      document.getElementById('visits-label').textContent = t.visits;
+      chooseButtons.forEach(button => { button.textContent = t.choose; });
+    }
     toggle.addEventListener('click', () => {
       const isOpening = table.hidden;
       table.hidden = !isOpening;
       toggle.setAttribute('aria-expanded', String(isOpening));
     });
-    document.querySelectorAll('.choose-button').forEach(button => {
+    chooseButtons.forEach(button => {
       button.addEventListener('click', () => {
-        const selected = greetings[Number(button.dataset.index)];
-        greeting.textContent = selected.text;
-        language.textContent = 'Wybrany język: ' + selected.language;
+        applyLanguage(Number(button.dataset.index));
         table.hidden = true;
         toggle.setAttribute('aria-expanded', 'false');
       });
