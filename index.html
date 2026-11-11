@@ -3,22 +3,63 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Jednorożec 🦄</title>
+  <title>Powitania świata 🦄</title>
   <style>
-    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Arial,sans-serif;background:linear-gradient(135deg,#fff0fb,#e9f9ff);color:#6d2f78;text-align:center}main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 20px}h1{margin:0 0 20px;font-size:clamp(2rem,7vw,4rem)}.unicorn{width:min(90vw,520px);max-height:55vh;object-fit:contain;border-radius:24px}footer{width:100%;padding:18px;background:rgba(255,255,255,.75);border-top:1px solid #ead8ed;font-size:1rem}
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 24px;
+      font-family: Arial, sans-serif; text-align: center; color: #653477;
+      background: linear-gradient(135deg, #fff0fb, #e9f9ff);
+    }
+    main { flex: 1; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; }
+    h1 { margin: 0; font-size: clamp(2.8rem, 10vw, 5rem); }
+    .greeting-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; }
+    #greeting { margin: 0; min-width: 120px; font-size: clamp(2rem, 7vw, 3.5rem); color: #159e9e; }
+    button {
+      border: 0; border-radius: 999px; padding: 14px 22px; cursor: pointer;
+      background: #159e9e; color: white; font-size: 1rem; font-weight: 700;
+      box-shadow: 0 4px 12px #159e9e35;
+    }
+    button:hover { background: #117f82; }
+    button:focus-visible { outline: 3px solid #653477; outline-offset: 4px; }
+    #language { margin: 0; color: #765783; font-size: 1rem; }
+    footer { width: 100%; padding: 18px; background: #ffffffb8; border-top: 1px solid #ead8ed; }
   </style>
 </head>
 <body>
   <main>
-    <h1>🦄</h1>
-    
+    <h1 aria-label="Jednorożec">🦄</h1>
+    <div class="greeting-row">
+      <h2 id="greeting" aria-live="polite">Hej!</h2>
+      <button id="change-language" type="button">Zmień język 🌍</button>
+    </div>
+    <p id="language">Język: polski 🇵🇱</p>
   </main>
   <footer>👀 Odwiedziny strony: <span id="visits">...</span></footer>
   <script>
-    const key='lilabotslab-page-visits';
-    const visits=Number(localStorage.getItem(key)||0)+1;
-    localStorage.setItem(key,visits);
-    document.getElementById('visits').textContent=visits;
+    const greetings = [
+      { text: 'Hej!', language: 'polski 🇵🇱' },
+      { text: 'Hello!', language: 'angielski 🇬🇧' },
+      { text: 'Hallo!', language: 'niemiecki 🇩🇪' },
+      { text: 'Salut!', language: 'francuski 🇫🇷' },
+      { text: '¡Hola!', language: 'hiszpański 🇪🇸' },
+      { text: 'Ciao!', language: 'włoski 🇮🇹' }
+    ];
+    let current = 0;
+    const greeting = document.getElementById('greeting');
+    const language = document.getElementById('language');
+
+    document.getElementById('change-language').addEventListener('click', () => {
+      current = (current + 1) % greetings.length;
+      greeting.textContent = greetings[current].text;
+      language.textContent = 'Język: ' + greetings[current].language;
+    });
+
+    const key = 'lilabotslab-page-visits';
+    const visits = Number(localStorage.getItem(key) || 0) + 1;
+    localStorage.setItem(key, visits);
+    document.getElementById('visits').textContent = visits;
   </script>
 </body>
 </html>
