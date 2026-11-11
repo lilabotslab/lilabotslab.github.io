@@ -1,137 +1,39 @@
 <!doctype html>
 <html lang="pl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Powitania świata</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; font-family: Arial, sans-serif; text-align: center; color: #49345a; background: linear-gradient(135deg, #fff0fb, #e9f9ff); overflow-x: hidden; }
-    main { width: 100%; min-height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; padding: 28px 18px 70px; }
-    h1 { margin: 0; font-size: clamp(2rem, 8vw, 3.5rem); }
-    .greeting-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px; }
-    #greeting { margin: 0; min-width: 120px; font-size: clamp(2.5rem, 8vw, 4rem); color: #159e9e; }
-    button { border: 0; border-radius: 999px; padding: 13px 20px; cursor: pointer; background: #159e9e; color: white; font-size: 1rem; font-weight: 700; box-shadow: 0 4px 12px #159e9e35; }
-    button:hover { background: #117f82; }
-    /* Kolory przycisków dopasowane do tła każdej strony książki. */
-    .page-under .turn-control { background: #e99abd; color: #60334b; box-shadow: 0 4px 12px #b95f8a35; }
-    .page-under .turn-control:hover { background: #d982a8; }
-    .page-deep .turn-control { background: #8055b5; color: #fff; box-shadow: 0 4px 12px #4c2d7b55; }
-    .page-deep .turn-control:hover { background: #684398; }
-    button:focus-visible { outline: 3px solid #653477; outline-offset: 4px; }
-    #language { margin: 0; color: #765783; font-size: 1rem; }
-    #language-table { width: min(100%, 520px); border-collapse: collapse; background: #ffffffdf; border-radius: 14px; overflow: hidden; }
-    #language-table th, #language-table td { padding: 12px; border-bottom: 1px solid #ead8ed; }
-    #language-table th { background: #dff6f4; }
-    #language-table tr:last-child td { border-bottom: 0; }
-    #language-table td:last-child { text-align: right; }
-    .choose-button { padding: 9px 15px; font-size: .9rem; }
-    [hidden] { display: none !important; }
-    .book-scene { width: 100%; min-height: 100vh; perspective: 1800px; }
-    .page-stack { position: relative; width: 100%; min-height: 100vh; }
-    .page-under, .page-leaf { position: absolute; inset: 0; min-height: 100vh; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
-    .page-under { position: absolute; z-index: 1; inset: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 24px 18px 76px; background: #fdebf4; transform-origin: left center; transform-style: preserve-3d; backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: transform 1.05s cubic-bezier(.6,.05,.25,1); }
-    .page-under.flipped { transform: rotateY(-180deg); }
-    .page-deep { position: absolute; z-index: 0; inset: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px 18px 88px; overflow: hidden; background: linear-gradient(145deg,#eadcff,#b995e8 55%,#8055b5); }
-    .stairs-photo { display: block; width: min(100%, 1000px); height: min(88vh, 900px); object-fit: contain; filter: drop-shadow(0 22px 34px #160d2b88); transform: perspective(1100px) rotateX(1deg); }
-    .page-deep h2 { margin: 0; color: #49305f; font-size: clamp(1.2rem,4vw,2rem); }
-    .page-leaf { transform-origin: left center; transform-style: preserve-3d; transition: transform 1.05s cubic-bezier(.6,.05,.25,1); background: #efffff; z-index: 2; overflow: hidden; }
-    .page-leaf::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; background: linear-gradient(90deg, #0000 70%, #49345a30 100%); transition: opacity .4s; }
-    .page-leaf.flipped { transform: rotateY(-180deg); }
-    .page-leaf.flipped::after { opacity: 1; }
-    .page-front { position: absolute; inset: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px; background: #efffff; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-    .unicorn { display: block; width: min(96%, 1200px); height: min(78vh, 900px); max-height: 78vh; object-fit: contain; }
-    .turn-control { position: absolute; bottom: 72px; z-index: 3; }
-    .turn-forward { right: 24px; }
-    .turn-back { left: 24px; visibility: hidden; }
-    .page-stack.is-flipped .turn-back { visibility: visible; }
-    footer { position: absolute; bottom: 0; left: 0; width: 100%; padding: 18px; background: #ffffffb8; border-top: 1px solid #ead8ed; }
-    @media (prefers-reduced-motion: reduce) { .page-leaf { transition: none; } }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galeria zdjęć</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;font-family:Arial,sans-serif;background:#111;color:#fff}
+body{min-height:100vh;display:flex;flex-direction:column}
+.gallery{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;gap:16px}
+.photo-wrap{width:100%;height:calc(100vh - 145px);display:flex;align-items:center;justify-content:center}
+#photo{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.controls{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
+button{border:0;border-radius:30px;padding:13px 22px;background:#f2a8cf;color:#382033;font-size:1rem;font-weight:700;cursor:pointer}
+button:focus-visible{outline:3px solid white;outline-offset:4px}
+#count{min-width:55px;text-align:center;font-weight:700;font-size:1.1rem}
+@media(max-width:600px){.gallery{padding:10px;gap:12px}.photo-wrap{height:calc(100vh - 125px)}button{padding:12px 17px}}
+</style>
 </head>
 <body>
-  <div class="book-scene">
-    <div class="page-stack">
-      <section class="page-under" aria-label="Druga strona kartki">
-        <h1 id="back-title">Magiczna strona ✨</h1>
-        <img class="unicorn" src="https://townsquare.media/site/341/files/2013/07/FlufflePuff.jpg?a=t&h=0&q=89&s=0&w=1200&zc=1" alt="Różowy, puszysty jednorożec Fluffle Puff na tęczy">
-        <button id="turn-back" class="turn-control turn-back" type="button">Wróć</button>
-        <button id="turn-page-3" class="turn-control turn-forward" type="button">Dalej ➜</button>
-      </section>
-      <section class="page-deep" aria-label="Trzecia kartka">
-        <img class="stairs-photo" src="/file_00000000c9e8820a807603ce0b1b3dca.gif" alt="Ilustracja schodów prowadzących do świetlistego portalu">
-        <button id="turn-back-3" class="turn-control turn-back" type="button" style="visibility:visible">⬅ Wróć</button>
-      </section>
-      <div class="page-leaf" id="page-leaf">
-        <section class="page-front" aria-label="Przód kartki">
-          <main>
-            <h1 id="page-title">Powitania świata</h1>
-            <div class="greeting-row">
-              <h2 id="greeting" aria-live="polite">Hej!</h2>
-              <button id="change-language" type="button" aria-expanded="false" aria-controls="language-table">Zmień język 🌍</button>
-            </div>
-            <p id="language">Wybrany język: Polski 🇵🇱</p>
-            <table id="language-table" hidden>
-              <thead><tr><th id="table-language">Język</th><th id="table-greeting">Powitanie</th><th id="table-action">Wybierz</th></tr></thead>
-              <tbody>
-                <tr><td>🇵🇱 Polski</td><td>Hej!</td><td><button class="choose-button" data-index="0">Wybierz</button></td></tr>
-                <tr><td>🇬🇧 English</td><td>Hello!</td><td><button class="choose-button" data-index="1">Wybierz</button></td></tr>
-                <tr><td>🇩🇪 Deutsch</td><td>Hallo!</td><td><button class="choose-button" data-index="2">Wybierz</button></td></tr>
-                <tr><td>🇫🇷 Français</td><td>Salut!</td><td><button class="choose-button" data-index="3">Wybierz</button></td></tr>
-                <tr><td>🇪🇸 Español</td><td>¡Hola!</td><td><button class="choose-button" data-index="4">Wybierz</button></td></tr>
-                <tr><td>🇮🇹 Italiano</td><td>Ciao!</td><td><button class="choose-button" data-index="5">Wybierz</button></td></tr>
-              </tbody>
-            </table>
-          </main>
-          <button id="turn-page" class="turn-control turn-forward" type="button">Dalej</button>
-        </section>
-      </div>
-    </div>
-  </div>
+<main class="gallery" aria-label="Prezentacja zdjęć">
+<div class="photo-wrap"><img id="photo" src="IMG_1217.png" alt="Zdjęcie 1 z 5"></div>
+<div class="controls">
+<button id="previous" type="button" aria-label="Poprzednie zdjęcie">⬅ Poprzednie</button>
+<span id="count" aria-live="polite">1 / 5</span>
+<button id="next" type="button" aria-label="Następne zdjęcie">Następne ➜</button>
+</div>
+</main>
 <script>
-(() => {
- const leaf=document.getElementById('page-leaf');
- const stack=document.querySelector('.page-stack');
- const under=document.querySelector('.page-under');
- const flip=(el,on)=>el.classList.toggle('flipped',on);
- document.getElementById('turn-page').addEventListener('click',()=>{flip(leaf,true);stack.classList.add('is-flipped');});
- document.getElementById('turn-back').addEventListener('click',()=>{flip(under,false);flip(leaf,false);stack.classList.remove('is-flipped');});
- document.getElementById('turn-page-3').addEventListener('click',()=>flip(under,true));
- document.getElementById('turn-back-3').addEventListener('click',()=>flip(under,false));
- const toggle=document.getElementById('change-language'),table=document.getElementById('language-table');
- toggle.addEventListener('click',()=>{table.hidden=!table.hidden;toggle.setAttribute('aria-expanded',String(!table.hidden));});
- const languages=[
-  {name:'Polski 🇵🇱',code:'pl',greeting:'Hej!',title:'Powitania świata',change:'Zmień język 🌍',selected:'Wybrany język: ',language:'Język',greetingLabel:'Powitanie',action:'Wybierz',next:'Dalej',back:'Wróć',magic:'Magiczna strona ✨',description:'Tutaj mieszka jednorożec!',unicorn:'Kolorowy jednorożec z tęczową grzywą',page2:'Druga strona kartki',page3:'Trzecia kartka',front:'Przód kartki'},
-  {name:'English 🇬🇧',code:'en',greeting:'Hello!',title:'Greetings Around the World',change:'Change language 🌍',selected:'Selected language: ',language:'Language',greetingLabel:'Greeting',action:'Choose',next:'Next',back:'Back',magic:'Magical page ✨',description:'A unicorn lives here!',unicorn:'Colorful unicorn with a rainbow mane',page2:'Second page',page3:'Third page',front:'Front page'},
-  {name:'Deutsch 🇩🇪',code:'de',greeting:'Hallo!',title:'Grüße aus aller Welt',change:'Sprache ändern 🌍',selected:'Ausgewählte Sprache: ',language:'Sprache',greetingLabel:'Gruß',action:'Auswählen',next:'Weiter',back:'Zurück',magic:'Zauberseite ✨',description:'Hier wohnt ein Einhorn!',unicorn:'Buntes Einhorn mit Regenbogenmähne',page2:'Zweite Seite',page3:'Dritte Seite',front:'Vorderseite'},
-  {name:'Français 🇫🇷',code:'fr',greeting:'Salut !',title:'Salutations du monde',change:'Changer de langue 🌍',selected:'Langue choisie : ',language:'Langue',greetingLabel:'Salutation',action:'Choisir',next:'Suivant',back:'Retour',magic:'Page magique ✨',description:'Une licorne habite ici !',unicorn:'Licorne colorée avec une crinière arc-en-ciel',page2:'Deuxième page',page3:'Troisième page',front:'Première page'},
-  {name:'Español 🇪🇸',code:'es',greeting:'¡Hola!',title:'Saludos del mundo',change:'Cambiar idioma 🌍',selected:'Idioma seleccionado: ',language:'Idioma',greetingLabel:'Saludo',action:'Elegir',next:'Siguiente',back:'Volver',magic:'Página mágica ✨',description:'¡Aquí vive un unicornio!',unicorn:'Unicornio colorido con melena arcoíris',page2:'Segunda página',page3:'Tercera página',front:'Primera página'},
-  {name:'Italiano 🇮🇹',code:'it',greeting:'Ciao!',title:'Saluti dal mondo',change:'Cambia lingua 🌍',selected:'Lingua selezionata: ',language:'Lingua',greetingLabel:'Saluto',action:'Scegli',next:'Avanti',back:'Indietro',magic:'Pagina magica ✨',description:'Qui vive un unicorno!',unicorn:'Unicorno colorato con criniera arcobaleno',page2:'Seconda pagina',page3:'Terza pagina',front:'Prima pagina'}
- ];
- const rows=[...document.querySelectorAll('#language-table tbody tr')];
- function applyLanguage(index){
-  const item=languages[index];
-  document.documentElement.lang=item.code;
-  document.getElementById('greeting').textContent=item.greeting;
-  document.getElementById('page-title').textContent=item.title;
-  toggle.textContent=item.change;
-  document.getElementById('language').textContent=item.selected+item.name;
-  document.getElementById('table-language').textContent=item.language;
-  document.getElementById('table-greeting').textContent=item.greetingLabel;
-  document.getElementById('table-action').textContent=item.action;
-  document.getElementById('back-title').textContent=item.magic;
-  document.querySelector('.unicorn').alt=item.unicorn;
-  document.querySelector('.page-under').setAttribute('aria-label',item.page2);
-  document.querySelector('.page-deep').setAttribute('aria-label',item.page3);
-  document.querySelector('.page-front').setAttribute('aria-label',item.front);
-  document.getElementById('turn-page').textContent=item.next;
-  document.getElementById('turn-page-3').textContent=item.next+' ➜';
-  document.getElementById('turn-back').textContent=item.back;
-  document.getElementById('turn-back-3').textContent='⬅ '+item.back;
-  rows.forEach((row,i)=>{row.querySelector('button').textContent=item.action;});
-  table.hidden=true;toggle.setAttribute('aria-expanded','false');
- }
- document.querySelectorAll('.choose-button').forEach(button=>button.addEventListener('click',()=>applyLanguage(Number(button.dataset.index))));
+(()=>{const images=['IMG_1217.png','IMG_1218.png','IMG_1219.png','IMG_1220.png','IMG_1221.png'];let index=0;
+const photo=document.getElementById('photo'),count=document.getElementById('count');
+function show(){photo.src=images[index];photo.alt='Zdjęcie '+(index+1)+' z '+images.length;count.textContent=(index+1)+' / '+images.length}
+function move(step){index=(index+step+images.length)%images.length;show()}
+document.getElementById('previous').addEventListener('click',()=>move(-1));
+document.getElementById('next').addEventListener('click',()=>move(1));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')move(-1);if(e.key==='ArrowRight')move(1)});
 })();
 </script>
 </body>
