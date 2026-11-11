@@ -53,7 +53,7 @@
         <img class="unicorn" src="https://img2.clipart-library.com/26/transparent-unicorn-clipart/transparent-unicorn-clipart-12.jpg" alt="Kolorowy jednorożec z tęczową grzywą">
         <button id="turn-back" class="turn-control turn-back" type="button">Wróć</button>
         <button id="turn-page-3" class="turn-control turn-forward" type="button">Dalej ➜</button>
-        <footer><span id="visits-label-back">👀 Odwiedziny strony:</span> <span class="visit-count">...</span></footer>
+        
       </section>
       <section class="page-deep" aria-label="Trzecia kartka">
         <img class="stairs-photo" src="https://data.ipic.ai/images/FKWvpSQ28kcJH4E_1731711848.png" alt="Ilustracja schodów prowadzących do świetlistego portalu">
@@ -81,93 +81,11 @@
             </table>
           </main>
           <button id="turn-page" class="turn-control turn-forward" type="button">Dalej</button>
-          <footer><span id="visits-label">👀 Odwiedziny strony:</span> <span class="visit-count">...</span></footer>
+          
         </section>
       </div>
     </div>
   </div>
-  <script>
-    const translations = [
-      { code:'pl', name:'Polski 🇵🇱', title:'Powitania świata', greeting:'Hej!', change:'Zmień język 🌍', selected:'Wybrany język:', tableLanguage:'Język', tableGreeting:'Powitanie', tableAction:'Wybierz', choose:'Wybierz', visits:'👀 Odwiedziny strony:', next:'Dalej', backTitle:'Magiczna strona ✨', backDescription:'Tutaj mieszka jednorożec!', back:'Wróć' },
-      { code:'en', name:'English 🇬🇧', title:'World Greetings', greeting:'Hello!', change:'Change language 🌍', selected:'Selected language:', tableLanguage:'Language', tableGreeting:'Greeting', tableAction:'Choose', choose:'Choose', visits:'👀 Page visits:', next:'Next', backTitle:'Magic page ✨', backDescription:'A unicorn lives here!', back:'Back' },
-      { code:'de', name:'Deutsch 🇩🇪', title:'Grüße aus aller Welt', greeting:'Hallo!', change:'Sprache ändern 🌍', selected:'Ausgewählte Sprache:', tableLanguage:'Sprache', tableGreeting:'Begrüßung', tableAction:'Auswählen', choose:'Auswählen', visits:'👀 Seitenaufrufe:', next:'Weiter', backTitle:'Zauberseite ✨', backDescription:'Hier wohnt ein Einhorn!', back:'Zurück' },
-      { code:'fr', name:'Français 🇫🇷', title:'Salutations du monde', greeting:'Salut !', change:'Changer de langue 🌍', selected:'Langue choisie :', tableLanguage:'Langue', tableGreeting:'Salutation', tableAction:'Choisir', choose:'Choisir', visits:'👀 Visites de la page :', next:'Suivant', backTitle:'Page magique ✨', backDescription:'Une licorne habite ici !', back:'Retour' },
-      { code:'es', name:'Español 🇪🇸', title:'Saludos del mundo', greeting:'¡Hola!', change:'Cambiar idioma 🌍', selected:'Idioma seleccionado:', tableLanguage:'Idioma', tableGreeting:'Saludo', tableAction:'Elegir', choose:'Elegir', visits:'👀 Visitas a la página:', next:'Siguiente', backTitle:'Página mágica ✨', backDescription:'¡Aquí vive un unicornio!', back:'Volver' },
-      { code:'it', name:'Italiano 🇮🇹', title:'Saluti dal mondo', greeting:'Ciao!', change:'Cambia lingua 🌍', selected:'Lingua selezionata:', tableLanguage:'Lingua', tableGreeting:'Saluto', tableAction:'Scegli', choose:'Scegli', visits:'👀 Visite della pagina:', next:'Avanti', backTitle:'Pagina magica ✨', backDescription:'Qui vive un unicorno!', back:'Indietro' }
-    ];
-    const greeting = document.getElementById('greeting');
-    const language = document.getElementById('language');
-    const table = document.getElementById('language-table');
-    const toggle = document.getElementById('change-language');
-    const chooseButtons = document.querySelectorAll('.choose-button');
-    const leaf = document.getElementById('page-leaf');
-    function applyLanguage(index) {
-      const t = translations[index];
-      document.documentElement.lang = t.code;
-      document.title = t.title;
-      document.getElementById('page-title').textContent = t.title;
-      greeting.textContent = t.greeting;
-      toggle.textContent = t.change;
-      language.textContent = t.selected + ' ' + t.name;
-      document.getElementById('table-language').textContent = t.tableLanguage;
-      document.getElementById('table-greeting').textContent = t.tableGreeting;
-      document.getElementById('table-action').textContent = t.tableAction;
-      document.getElementById('visits-label').textContent = t.visits;
-      document.getElementById('visits-label-back').textContent = t.visits;
-      document.getElementById('turn-page').textContent = t.next;
-      document.getElementById('back-title').textContent = t.backTitle;
-      document.getElementById('back-description').textContent = t.backDescription;
-      document.getElementById('turn-back').textContent = t.back;
-      chooseButtons.forEach(button => { button.textContent = t.choose; });
-      localStorage.setItem('lilabotslab-language', String(index));
-    }
-    toggle.addEventListener('click', () => {
-      const isOpening = table.hidden;
-      table.hidden = !isOpening;
-      toggle.setAttribute('aria-expanded', String(isOpening));
-    });
-    chooseButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        applyLanguage(Number(button.dataset.index));
-        table.hidden = true;
-        toggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-    const pageStack = document.querySelector('.page-stack');
-    document.getElementById('turn-page').addEventListener('click', () => {
-      leaf.classList.add('flipped');
-      pageStack.classList.add('is-flipped');
-    });
-    document.getElementById('turn-page-3').addEventListener('click', () => {
-      document.querySelector('.page-under').classList.add('flipped');
-    });
-    document.getElementById('turn-back-3').addEventListener('click', () => {
-      document.querySelector('.page-under').classList.remove('flipped');
-    });
-    document.getElementById('turn-back').addEventListener('click', () => {
-      leaf.classList.remove('flipped');
-      pageStack.classList.remove('is-flipped');
-    });
-    const savedLanguage = Number(localStorage.getItem('lilabotslab-language') || 0);
-    applyLanguage(Number.isInteger(savedLanguage) && savedLanguage >= 0 && savedLanguage < translations.length ? savedLanguage : 0);
-    const visitNodes = document.querySelectorAll('.visit-count');
-    visitNodes.forEach(el => { el.textContent = '…'; });
-    fetch('https://api.counterapi.dev/v1/lilabotslab-book/visits/up')
-      .then(response => {
-        if (!response.ok) throw new Error('Licznik jest chwilowo niedostępny');
-        return response.json();
-      })
-      .then(data => {
-        const count = data.count ?? data.value;
-        if (count == null) throw new Error('Brak wartości licznika');
-        visitNodes.forEach(el => { el.textContent = Number(count).toLocaleString('pl-PL'); });
-      })
-      .catch(() => {
-        const key = 'lilabotslab-page-visits';
-        const visits = Number(localStorage.getItem(key) || 0) + 1;
-        localStorage.setItem(key, visits);
-        visitNodes.forEach(el => { el.textContent = visits.toLocaleString('pl-PL') + ' (lokalnie)'; });
-      });
-  </script>
+  
 </body>
 </html>
