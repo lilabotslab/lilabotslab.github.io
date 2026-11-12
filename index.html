@@ -5,25 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Galeria zdjęć</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;font-family:Arial,sans-serif;background:#111;color:#fff}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;font-family:Arial,sans-serif;background:#111;color:#fff}
 body{min-height:100vh;display:flex;flex-direction:column}
 .gallery{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;gap:16px}
 .photo-wrap{width:100%;height:calc(100vh - 145px);display:flex;align-items:center;justify-content:center}
 #photo{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
-.controls{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
-button{border:0;border-radius:30px;padding:13px 22px;background:#f2a8cf;color:#382033;font-size:1rem;font-weight:700;cursor:pointer}
-button:focus-visible{outline:3px solid white;outline-offset:4px}
-#count{min-width:55px;text-align:center;font-weight:700;font-size:1.1rem}
-@media(max-width:600px){.gallery{padding:10px;gap:12px}.photo-wrap{height:calc(100vh - 125px)}button{padding:12px 17px}}
+.controls{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap}
+.nav-button{width:54px;height:54px;padding:0;border:1px solid rgba(255,255,255,.42);border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#ffd5ec,#e99acb);color:#512746;font-size:2rem;font-weight:400;line-height:1;cursor:pointer;box-shadow:0 5px 18px rgba(233,154,203,.28),inset 0 1px 2px rgba(255,255,255,.8);transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.nav-button:hover{transform:translateY(-3px) scale(1.06);box-shadow:0 9px 24px rgba(233,154,203,.42)}
+.nav-button:active{transform:scale(.96)}
+.nav-button:focus-visible{outline:3px solid white;outline-offset:5px}
+#count{min-width:76px;padding:9px 16px;text-align:center;font-weight:600;font-size:.95rem;letter-spacing:.08em;color:#ffe3f2;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);border-radius:24px;backdrop-filter:blur(8px)}
+@media(max-width:600px){.gallery{padding:10px;gap:12px}.photo-wrap{height:calc(100vh - 125px)}.controls{gap:18px}.nav-button{width:48px;height:48px;font-size:1.8rem}}
+@media(prefers-reduced-motion:reduce){.nav-button{transition:none}}
 </style>
 </head>
 <body>
 <main class="gallery" aria-label="Prezentacja zdjęć">
 <div class="photo-wrap"><img id="photo" src="IMG_1217.png" alt="Zdjęcie 1 z 5"></div>
 <div class="controls">
-<button id="previous" type="button" aria-label="Poprzednie zdjęcie">⬅ Poprzednie</button>
+<button class="nav-button" id="previous" type="button" aria-label="Poprzednie zdjęcie" title="Poprzednie zdjęcie">‹</button>
 <span id="count" aria-live="polite">1 / 5</span>
-<button id="next" type="button" aria-label="Następne zdjęcie">Następne ➜</button>
+<button class="nav-button" id="next" type="button" aria-label="Następne zdjęcie" title="Następne zdjęcie">›</button>
 </div>
 </main>
 <script>
