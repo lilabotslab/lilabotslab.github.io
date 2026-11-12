@@ -7,17 +7,17 @@
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;min-height:100%;font-family:Arial,sans-serif;background:#111;color:#fff}
-body{min-height:100vh;display:flex;flex-direction:column}
-.gallery{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;gap:16px}
-.photo-wrap{width:100%;height:calc(100vh - 145px);display:flex;align-items:center;justify-content:center}
+body{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;overflow:hidden}
+.gallery{height:100vh;height:100svh;min-height:0;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;gap:10px;overflow:hidden}
+.photo-wrap{width:100%;height:auto;flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center}
 #photo{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
-.controls{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap}
+.controls{flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:nowrap}
 .nav-button{width:54px;height:54px;padding:0;border:1px solid rgba(255,255,255,.42);border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#ffd5ec,#e99acb);color:#512746;font-size:2rem;font-weight:400;line-height:1;cursor:pointer;box-shadow:0 5px 18px rgba(233,154,203,.28),inset 0 1px 2px rgba(255,255,255,.8);transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
 .nav-button:hover{transform:translateY(-3px) scale(1.06);box-shadow:0 9px 24px rgba(233,154,203,.42)}
 .nav-button:active{transform:scale(.96)}
 .nav-button:focus-visible{outline:3px solid white;outline-offset:5px}
 #count{min-width:76px;padding:9px 16px;text-align:center;font-weight:600;font-size:.95rem;letter-spacing:.08em;color:#ffe3f2;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);border-radius:24px;backdrop-filter:blur(8px)}
-@media(max-width:600px){.gallery{padding:10px;gap:12px}.photo-wrap{height:calc(100vh - 125px)}.controls{gap:18px}.nav-button{width:48px;height:48px;font-size:1.8rem}}
+@media(max-width:600px){.gallery{padding:8px;gap:8px}.controls{gap:16px}.nav-button{width:44px;height:44px;font-size:1.7rem}}
 @media(prefers-reduced-motion:reduce){.nav-button{transition:none}}
 </style>
 </head>
