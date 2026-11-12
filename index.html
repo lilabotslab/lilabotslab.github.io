@@ -23,15 +23,15 @@ body{min-height:100vh;display:flex;flex-direction:column}
 </head>
 <body>
 <main class="gallery" aria-label="Prezentacja zdjęć">
-<div class="photo-wrap"><img id="photo" src="IMG_1217.jpeg" alt="Zdjęcie 1 z 5"></div>
+<div class="photo-wrap"><img id="photo" src="IMG_1217.jpeg" alt="Zdjęcie 1 z 4"></div>
 <div class="controls">
 <button class="nav-button" id="previous" type="button" aria-label="Poprzednie zdjęcie" title="Poprzednie zdjęcie">‹</button>
-<span id="count" aria-live="polite">1 / 5</span>
+<span id="count" aria-live="polite">1 / 4</span>
 <button class="nav-button" id="next" type="button" aria-label="Następne zdjęcie" title="Następne zdjęcie">›</button>
 </div>
 </main>
 <script>
-(()=>{const images=['IMG_1217.jpeg','IMG_1218.jpeg','IMG_1219.jpeg','IMG_1220.jpeg','IMG_1221.jpeg'];let index=0;
+(()=>{const images=['IMG_1217.jpeg','IMG_1218.jpeg','IMG_1220.jpeg','IMG_1221.jpeg'];let index=0;
 const photo=document.getElementById('photo'),count=document.getElementById('count');
 function show(){photo.src=images[index];photo.alt='Zdjęcie '+(index+1)+' z '+images.length;count.textContent=(index+1)+' / '+images.length}
 function move(step){index=(index+step+images.length)%images.length;show()}
