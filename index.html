@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Präsentation im Unterricht</title>
+<title>Präsentation</title>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;min-height:100%;font-family:Arial,sans-serif;background:#fff;color:#512746}
@@ -20,6 +20,7 @@ body{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;overf
 .nav-button{width:54px;height:54px;padding:0;border:1px solid rgba(255,255,255,.42);border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#ffd5ec,#e99acb);color:#512746;font-size:2rem;font-weight:400;line-height:1;cursor:pointer;box-shadow:0 5px 18px rgba(233,154,203,.28),inset 0 1px 2px rgba(255,255,255,.8);transition:transform .2s ease,box-shadow .2s ease}
 .nav-button:hover{transform:translateY(-3px) scale(1.06);box-shadow:0 9px 24px rgba(233,154,203,.42)}
 .nav-button:active{transform:scale(.96)}
+.nav-button:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
 .nav-button:focus-visible{outline:3px solid #512746;outline-offset:5px}
 #count{min-width:76px;padding:9px 16px;text-align:center;font-weight:600;font-size:.95rem;letter-spacing:.08em;color:#8a426b;background:#fff0f7;border:1px solid #f0c5dc;border-radius:24px}
 @media(max-width:600px){.gallery{padding:8px;gap:8px}.controls{gap:16px}.nav-button{width:44px;height:44px;font-size:1.7rem}#cover{border-radius:16px}.cover-panel{border-radius:14px}}
@@ -31,7 +32,7 @@ body{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;overf
 <div class="photo-wrap">
 <section id="cover" aria-label="Titelfolie">
 <div class="cover-panel">
-<h1 class="cover-title">Präsentation im Unterricht</h1>
+<h1 class="cover-title">Präsentation</h1>
 <p class="cover-lesson">Lektion C113</p>
 <p class="cover-number">1313</p>
 </div>
@@ -49,14 +50,19 @@ body{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;overf
 const slides=[{type:'cover'},{type:'photo',src:'IMG_1217.jpeg'},{type:'photo',src:'IMG_1218.jpeg'},{type:'photo',src:'IMG_1220.jpeg'},{type:'photo',src:'IMG_1221.jpeg'}];
 let index=0;
 const photo=document.getElementById('photo'),cover=document.getElementById('cover'),count=document.getElementById('count');
+const previous=document.getElementById('previous'),next=document.getElementById('next');
 function show(){
  const slide=slides[index],isCover=slide.type==='cover';
  cover.style.display=isCover?'flex':'none';
  photo.style.display=isCover?'none':'block';
- if(!isCover){photo.src=slide.src;photo.alt='Foto '+index+' von '+slides.length}
+ if(!isCover){photo.src=slide.src;photo.alt='Foto '+index+' von '+(slides.length-1)}
  count.textContent=(index+1)+' / '+slides.length;
+ previous.disabled=index===0;
+ next.disabled=index===slides.length-1;
+ previous.setAttribute('aria-disabled',String(previous.disabled));
+ next.setAttribute('aria-disabled',String(next.disabled));
 }
-function move(step){index=(index+step+slides.length)%slides.length;show()}
+function move(step){const target=index+step;if(target<0||target>=slides.length)return;index=target;show()}
 document.getElementById('previous').addEventListener('click',()=>move(-1));
 document.getElementById('next').addEventListener('click',()=>move(1));
 document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')move(-1);if(e.key==='ArrowRight')move(1)});
