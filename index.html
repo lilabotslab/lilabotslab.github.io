@@ -1,43 +1,66 @@
 <!doctype html>
-<html lang="pl">
+<html lang="de">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>lego</title>
+<title>Präsentation im Unterricht</title>
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;min-height:100%;font-family:Arial,sans-serif;background:#fff;color:#222}
+html,body{margin:0;width:100%;min-height:100%;font-family:Arial,sans-serif;background:#fff;color:#512746}
 body{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;overflow:hidden}
 .gallery{height:100vh;height:100svh;min-height:0;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;gap:10px;overflow:hidden}
 .photo-wrap{width:100%;height:auto;flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center}
 #photo{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+#cover{display:none;width:min(100%,1100px);height:100%;min-height:0;align-items:center;justify-content:center;text-align:center;padding:clamp(20px,5vw,64px);background:#fff url('https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjgyMi1hZXctMzdfMS5qcGc.jpg') center/cover no-repeat;border:clamp(8px,1.5vw,18px) solid #f6c9df;border-radius:24px;box-shadow:0 8px 28px rgba(190,105,151,.12)}
+.cover-panel{width:100%;padding:clamp(24px,5vw,64px) 18px;background:rgba(255,255,255,.84);border:1px solid rgba(255,255,255,.9);border-radius:20px}
+.cover-title{margin:0;color:#a84f80;font-size:clamp(2rem,6vw,5rem);font-weight:700;line-height:1.12}
+.cover-lesson{margin:clamp(16px,3vh,30px) 0 0;color:#86506e;font-size:clamp(1.2rem,3vw,2rem);letter-spacing:.08em}
+.cover-number{margin:clamp(20px,4vh,38px) 0 0;color:#b85f91;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;letter-spacing:.22em}
 .controls{flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:nowrap}
-.nav-button{width:54px;height:54px;padding:0;border:1px solid rgba(255,255,255,.42);border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#ffd5ec,#e99acb);color:#512746;font-size:2rem;font-weight:400;line-height:1;cursor:pointer;box-shadow:0 5px 18px rgba(233,154,203,.28),inset 0 1px 2px rgba(255,255,255,.8);transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.nav-button{width:54px;height:54px;padding:0;border:1px solid rgba(255,255,255,.42);border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#ffd5ec,#e99acb);color:#512746;font-size:2rem;font-weight:400;line-height:1;cursor:pointer;box-shadow:0 5px 18px rgba(233,154,203,.28),inset 0 1px 2px rgba(255,255,255,.8);transition:transform .2s ease,box-shadow .2s ease}
 .nav-button:hover{transform:translateY(-3px) scale(1.06);box-shadow:0 9px 24px rgba(233,154,203,.42)}
 .nav-button:active{transform:scale(.96)}
 .nav-button:focus-visible{outline:3px solid #512746;outline-offset:5px}
-#count{min-width:76px;padding:9px 16px;text-align:center;font-weight:600;font-size:.95rem;letter-spacing:.08em;color:#8a426b;background:#fff0f7;border:1px solid #f0c5dc;border-radius:24px;backdrop-filter:blur(8px)}
-@media(max-width:600px){.gallery{padding:8px;gap:8px}.controls{gap:16px}.nav-button{width:44px;height:44px;font-size:1.7rem}}
+#count{min-width:76px;padding:9px 16px;text-align:center;font-weight:600;font-size:.95rem;letter-spacing:.08em;color:#8a426b;background:#fff0f7;border:1px solid #f0c5dc;border-radius:24px}
+@media(max-width:600px){.gallery{padding:8px;gap:8px}.controls{gap:16px}.nav-button{width:44px;height:44px;font-size:1.7rem}#cover{border-radius:16px}.cover-panel{border-radius:14px}}
 @media(prefers-reduced-motion:reduce){.nav-button{transition:none}}
 </style>
 </head>
 <body>
-<main class="gallery" aria-label="Prezentacja zdjęć">
-<div class="photo-wrap"><img id="photo" src="IMG_1217.jpeg" alt="Zdjęcie 1 z 4"></div>
+<main class="gallery" aria-label="Präsentation">
+<div class="photo-wrap">
+<section id="cover" aria-label="Titelfolie">
+<div class="cover-panel">
+<h1 class="cover-title">Präsentation im Unterricht</h1>
+<p class="cover-lesson">Lektion C113</p>
+<p class="cover-number">1313</p>
+</div>
+</section>
+<img id="photo" src="IMG_1217.jpeg" alt="Foto 1 von 4">
+</div>
 <div class="controls">
-<button class="nav-button" id="previous" type="button" aria-label="Poprzednie zdjęcie" title="Poprzednie zdjęcie">‹</button>
-<span id="count" aria-live="polite">1 / 4</span>
-<button class="nav-button" id="next" type="button" aria-label="Następne zdjęcie" title="Następne zdjęcie">›</button>
+<button class="nav-button" id="previous" type="button" aria-label="Vorherige Folie" title="Vorherige Folie">‹</button>
+<span id="count" aria-live="polite">1 / 5</span>
+<button class="nav-button" id="next" type="button" aria-label="Nächste Folie" title="Nächste Folie">›</button>
 </div>
 </main>
 <script>
-(()=>{const images=['IMG_1217.jpeg','IMG_1218.jpeg','IMG_1220.jpeg','IMG_1221.jpeg'];let index=0;
-const photo=document.getElementById('photo'),count=document.getElementById('count');
-function show(){photo.src=images[index];photo.alt='Zdjęcie '+(index+1)+' z '+images.length;count.textContent=(index+1)+' / '+images.length}
-function move(step){index=(index+step+images.length)%images.length;show()}
+(()=>{
+const slides=[{type:'cover'},{type:'photo',src:'IMG_1217.jpeg'},{type:'photo',src:'IMG_1218.jpeg'},{type:'photo',src:'IMG_1220.jpeg'},{type:'photo',src:'IMG_1221.jpeg'}];
+let index=0;
+const photo=document.getElementById('photo'),cover=document.getElementById('cover'),count=document.getElementById('count');
+function show(){
+ const slide=slides[index],isCover=slide.type==='cover';
+ cover.style.display=isCover?'flex':'none';
+ photo.style.display=isCover?'none':'block';
+ if(!isCover){photo.src=slide.src;photo.alt='Foto '+index+' von '+slides.length}
+ count.textContent=(index+1)+' / '+slides.length;
+}
+function move(step){index=(index+step+slides.length)%slides.length;show()}
 document.getElementById('previous').addEventListener('click',()=>move(-1));
 document.getElementById('next').addEventListener('click',()=>move(1));
 document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')move(-1);if(e.key==='ArrowRight')move(1)});
+show();
 })();
 </script>
 </body>
