@@ -37,17 +37,17 @@ body{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;overf
 <p class="cover-number">1313</p>
 </div>
 </section>
-<img id="photo" src="IMG_1217.jpeg" alt="Foto 1 von 4">
+<img id="photo" src="IMG_1217.jpeg" alt="Zdjęcie 1 z 6">
 </div>
 <div class="controls">
 <button class="nav-button" id="previous" type="button" aria-label="Vorherige Folie" title="Vorherige Folie">‹</button>
-<span id="count" aria-live="polite">1 / 5</span>
+<span id="count" aria-live="polite">1 / 7</span>
 <button class="nav-button" id="next" type="button" aria-label="Nächste Folie" title="Nächste Folie">›</button>
 </div>
 </main>
 <script>
 (()=>{
-const slides=[{type:'cover'},{type:'photo',src:'IMG_1217.jpeg'},{type:'photo',src:'IMG_1218.jpeg'},{type:'photo',src:'IMG_1220.jpeg'},{type:'photo',src:'IMG_1221.jpeg'}];
+const slides=[{type:'cover'},{type:'photo',src:'Instrukcja01.jpg'},{type:'photo',src:'Instrukcja02.jpg'},{type:'photo',src:'Instrukcja03.jpg'},{type:'photo',src:'Instrukcja04.jpg'},{type:'photo',src:'Instrukcja05.jpg'},{type:'photo',src:'Instrukcja06.jpg'}];
 let index=0;
 const photo=document.getElementById('photo'),cover=document.getElementById('cover'),count=document.getElementById('count');
 const previous=document.getElementById('previous'),next=document.getElementById('next');
@@ -55,7 +55,7 @@ function show(){
  const slide=slides[index],isCover=slide.type==='cover';
  cover.style.display=isCover?'flex':'none';
  photo.style.display=isCover?'none':'block';
- if(!isCover){photo.src=slide.src;photo.alt='Foto '+index+' von '+(slides.length-1)}
+ if(!isCover){photo.src=slide.src;photo.alt='Zdjęcie '+index+' z '+(slides.length-1)}
  count.textContent=(index+1)+' / '+slides.length;
  previous.disabled=index===0;
  next.disabled=index===slides.length-1;
