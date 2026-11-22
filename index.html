@@ -9,7 +9,7 @@
 html,body{margin:0;width:100%;min-height:100%;font-family:Arial,sans-serif;background:#fff;color:#203b53}
 body{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;overflow:hidden}
 .gallery{height:100vh;height:100svh;min-height:0;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;gap:10px;overflow:hidden}
-.photo-wrap{width:100%;height:auto;flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center}
+.photo-wrap{position:relative;width:100%;height:auto;flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;transform-origin:left center;transform-style:preserve-3d;backface-visibility:hidden;transition:transform .32s ease,opacity .32s ease;perspective:1400px}\n.photo-wrap.turning{transform:perspective(1400px) rotateY(-82deg);opacity:.15}\n@media(prefers-reduced-motion:reduce){.photo-wrap{transition:none}}
 #photo{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
 #cover{display:none;width:min(100%,1100px);height:100%;min-height:0;align-items:center;justify-content:center;text-align:center;padding:clamp(20px,5vw,64px);background:linear-gradient(145deg,#f2f8fc 0%,#dcecf6 58%,#c5dfef 100%);border:clamp(7px,1.2vw,14px) solid #6ba6ca;border-radius:18px;box-shadow:0 8px 28px rgba(32,77,105,.14)}
 .cover-panel{position:relative;width:100%;padding:clamp(30px,6vw,76px) 18px;background:rgba(255,255,255,.9);border:1px solid #fff;border-radius:12px;box-shadow:0 4px 18px rgba(32,77,105,.08)}
@@ -62,7 +62,7 @@ function show(){
  previous.setAttribute('aria-disabled',String(previous.disabled));
  next.setAttribute('aria-disabled',String(next.disabled));
 }
-function move(step){const target=index+step;if(target<0||target>=slides.length)return;index=target;show()}
+function move(step){const target=index+step;if(target<0||target>=slides.length||turning)return;\n const wrap=document.querySelector('.photo-wrap');\n if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){index=target;show();return}\n turning=true;wrap.classList.add('turning');\n window.setTimeout(()=>{index=target;show();wrap.classList.remove('turning');window.setTimeout(()=>{turning=false},330)},320)\n}
 document.getElementById('previous').addEventListener('click',()=>move(-1));
 document.getElementById('next').addEventListener('click',()=>move(1));
 document.addEventListener('keydown',e=>{
